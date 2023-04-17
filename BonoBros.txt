@@ -1,0 +1,24 @@
+Team BonoBros
+
+Mitglieder:
+- Seyfullah Talay
+- Dirk Meixner
+- Maximilian Többen
+- Marco Ludwig
+
+Kurze Beschreibung:
+
+Eine WebApp auf welcher ein Spiel gegeneinander gespielt werden kann.
+
+Funktionen:
+- Benutzer
+    - Admin
+    - Sessions
+    - Cookies
+
+- Lobbies
+- Spiel
+- Ranking
+- Gegeneinander online spielen
+
+
