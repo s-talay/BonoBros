@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/login.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/login.css">
     <title>Document</title>
 </head>
 
@@ -16,15 +16,14 @@
     #Used for the login
     
     ?>
-    <section class="vh-100">
+    <section class="mb-auto">
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-9 col-lg-6 col-xl-5">
-                    <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                        class="img-fluid" alt="Sample image">
+                    <img src="img/BonoBrosLogo.png" class="img-fluid" alt="Logo">
                 </div>
-                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                    <form>
+                <div class="pt-4 col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form class="pt-4" method="POST">
                         <h3 class="mb-4">Login</h3>
 
                         <!-- Email input -->
@@ -63,16 +62,16 @@
                 </div>
             </div>
         </div>
-        <div
-            class="footer mt-auto d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-            <!-- Copyright -->
-            <div class="text-white mb-3 mb-md-0">
-                Copyright © 2027. All lefts reserved.
-            </div>
-            <!-- Copyright -->
-
-        </div>
     </section>
+    <div class="padding"></div>
+    <footer
+        class="footer d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+        <!-- Copyright -->
+        <div class="text-white mb-3 mb-md-0">
+            Copyright © 2027. All lefts reserved.
+        </div>
+        <!-- Copyright -->
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
