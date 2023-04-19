@@ -7,18 +7,27 @@ Mitglieder:
 - Marco Ludwig
 
 Kurze Beschreibung:
-
 Eine WebApp auf welcher ein Spiel gegeneinander gespielt werden kann.
+
+Zielgruppen:
+- DHBW-Studenten
+- Freunde von klassischen Online Mehrsüeiler Spielen
+- (Also wir ^^)
 
 Funktionen:
 - Benutzer
-    - Admin
-    - Sessions
-    - Cookies
-
+- Admin
+    - Menu (Userverwaltung)
 - Lobbies
 - Spiel
 - Ranking
-- Gegeneinander online spielen
+- Spiel
+    - Online gegneinander
+    - TicTacToe
 
+Geplante Technologien:
+- jQuery
+- jQueryUI
+- PHP
+- MySQL
 
