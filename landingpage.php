@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include_once("bits/links.php"); ?>
-    <title>Document</title>
-</head>
-
-<body>
-    <?php include_once("bits/header.php"); ?>
-
-    <main>
+<?php
+$pageStyles = '<link rel="stylesheet" href="css/landingpage.css">';
+$pageTitle = "Home";
+$pageContent = '<main>
         <div class="px-md-5 mx-md-5 album py-5 bg-light">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -59,12 +48,7 @@
                 </div>
             </div>
         </div>
-    </main>
+    </main>';
 
-    <?php
-    include_once("bits/footer.php");
-    include_once("bits/scripts.php");
-    ?>
-</body>
-
-</html>
+include_once("master.php");
+?>

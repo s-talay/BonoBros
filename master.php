@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php echo $pageLinks?>
-    <title><?php echo $pageTitle?></title>
+    <?php
+    include_once("bits/links.php");
+    echo $pageStyles
+    ?>
+    <title><?php echo $pageTitle ?></title>
 </head>
+
 <body>
-    <?php 
+    <?php
     include_once("bits/header.php");
     echo $pageContent;
     include_once("bits/footer.php");
+    include_once("bits/scripts.php");
     ?>
 </body>
+
 </html>

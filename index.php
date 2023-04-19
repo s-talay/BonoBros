@@ -1,6 +1,9 @@
 <?php
-    if(empty($_SESSION["sessionid"])) 
+    if(empty($_SESSION["sessionid"]));
+    header("Location: landingpage.php",true,301);
+
 ?>
+
 
 <h1>This is index.php</h1>
 <a href="login.php">Login</a>
