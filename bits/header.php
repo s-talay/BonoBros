@@ -9,9 +9,8 @@
                         </p>
                     </div>
                     <div class="col-sm-4 offset-md-1 py-4">
-                        <h4 class="text-white">Contact</h4>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                            <li><a href="/login.php">Login</a></li>
                         </ul>
                     </div>
                 </div>

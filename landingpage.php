@@ -1,5 +1,5 @@
 <?php
-$pageStyles = '<link rel="stylesheet" href="css/landingpage.css">';
+$pageStyles = '<link rel="stylesheet" href="/css/landingpage.css">';
 $pageTitle = "Home";
 $pageContent = '<main>
         <div class="px-md-5 mx-md-5 album py-5 bg-light">
