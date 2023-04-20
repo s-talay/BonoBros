@@ -1,4 +1,32 @@
-:root{
-    --header-color: rgb(91, 173, 210);
-    --footer-color: rgb(91, 173, 210);
+:root {
+  --header-color: rgb(91, 173, 210);
+  --footer-color: rgb(91, 173, 210);
+  --footer-height: 40px;
 }
+/* Footer an Unterseite kleben */
+body {
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: var(--footer-height);
+  /* Set same as footer's height */
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--footer-height);
+}
+/* Ende - Footer an Unterseite kleben */
+
+/* Navbar */
+nav {
+  background-color: lightblue;
+}
+/* Ende - Navbar */
