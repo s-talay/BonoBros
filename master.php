@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php
-    include_once("bits/links.php");
+    include_once("bits/stylelinks.php");
     echo $pageStyles
     ?>
     <title><?php echo $pageTitle ?></title>

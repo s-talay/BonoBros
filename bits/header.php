@@ -1,4 +1,4 @@
-<header id="top">
+<header style="background-color: var(--header-color);" id="top">
         <div class="collapse bg-light" id="navbarHeader">
             <div class="container">
                 <div class="row">
