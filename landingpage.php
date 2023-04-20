@@ -6,7 +6,7 @@ $pageContent = '<main>
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                     <div class="col">
-                        <a href="#" class="card shadow-sm">
+                        <a href="/game.php?gamename=fortnite" class="card shadow-sm">
                             <img src="img/Fortnite.jpg" alt="">
                             <div class="card-body">
                                 <p class="card-text">
@@ -19,7 +19,7 @@ $pageContent = '<main>
                         </a>
                     </div>
                     <div class="col">
-                        <a href="#" class="card shadow-sm">
+                        <a href="/game.php?gamename=amogus" class="card shadow-sm">
                             <img src="img/Amogus.jpg" alt="">
                             <div class="card-body">
                                 <p class="card-text">
@@ -32,7 +32,7 @@ $pageContent = '<main>
                         </a>
                     </div>
                     <div class="col">
-                        <a href="#" class="card shadow-sm">
+                        <a href="/game.php?gamename=mario" class="card shadow-sm">
                             <img src="img/Mario.jpg" alt="">
                             <div class="card-body">
                                 <p class="card-text">

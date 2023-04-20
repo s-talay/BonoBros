@@ -1,6 +1,5 @@
 <?php
-$gamename = $_GET['var'];
-echo $gamename;
+$gamename = $_GET['gamename'];
 // check if game exists {
     //variablen setzen
 include_once("master.php");
