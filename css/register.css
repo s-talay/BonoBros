@@ -1,0 +1,10 @@
+#form-wrapper {
+    position: relative;
+    top: 15dvh;
+    width: 15rem;
+}
+
+input {
+    margin-top: 0.45rem;
+    margin-bottom: 0.45rem;
+}
