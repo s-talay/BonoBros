@@ -1,7 +1,7 @@
 <?php
 $pageStyles = '<link rel="stylesheet" href="css/login.css">';
 $pageTitle = "Login";
-$pageContent = file_get_contents("content/login.html");
+$pageContent = file_get_contents("content/login.php");
     include_once("master.php"); 
 
 $sname= "localhost";
