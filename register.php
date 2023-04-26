@@ -1,10 +1,17 @@
 <?php
+require_once "config.php";
+$pageStyles = '<link rel="stylesheet" href="css/register.css">';
+$pageTitle = "Registrieren";
+$pageContent = file_get_contents("content/register.php");
+    include_once("master.php"); 
+?>
+<?php
 // Include config file
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$email = $username = $password = $password_repeat = "";
+$email_err = $username_err = $password_err = $password_repeat_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
