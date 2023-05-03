@@ -79,7 +79,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`) VALUES
-(1, '', 'admin', '$2y$10$SNvTAd0IxbMRynwafCqlTOH.mBsliHAjiEwS7r96/zoMCM/qHACUi', '2023-05-03 12:06:39');
+(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', '2023-05-03 15:39:12');
 
 --
 -- Indizes der exportierten Tabellen
