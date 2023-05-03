@@ -2,8 +2,8 @@
     <form class="mx-auto form-signin" action="login.php" method="post">
         <h1 class="h3 mb-3 fw-normal">Login</h1>
 
-        <label for="emailLabel" class="visually-hidden">Email address</label>
-        <input type="email" name="email" id="emailLabel" class="form-control" placeholder="E-Mail" required="">
+        <label for="usernameLabel" class="visually-hidden">Username</label>
+        <input type="text" name="username" id="usernameLabel" class="form-control" placeholder="Username" required="">
 
         <label for="passwordLabel" class="visually-hidden">Password</label>
         <input type="password" name="password" id="passwordLabel" class="form-control" placeholder="Passwort"
