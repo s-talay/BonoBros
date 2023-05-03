@@ -6,7 +6,7 @@
         <label for="emailLabel" class="visually-hidden">Email address</label>
         <input type="email" name="email" id="emailLabel"
             class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" placeholder="E-Mail"
-            required="" value="<?php echo $email; ?>">
+            required="">
         <span class="invalid-feedback">
             <?php echo $email_err; ?>
         </span>
@@ -14,7 +14,7 @@
         <label for="usernameLabel" class="visually-hidden">Username</label>
         <input type="text" name="username" id="usernameLabel"
             class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" placeholder="Username"
-            required="" value="<?php echo $username; ?>">
+            required="">
         <span class="invalid-feedback">
             <?php echo $username_err; ?>
         </span>
@@ -22,17 +22,17 @@
         <label for="passwordLabel" class="visually-hidden">Password</label>
         <input type="password" name="password" id="passwordLabel"
             class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" placeholder="Passwort"
-            required="" value="<?php echo $password; ?>">
+            required="">
         <span class="invalid-feedback">
             <?php echo $password_err; ?>
         </span>
 
-        <label for="passwordRepeatLabel" class="visually-hidden">Repeat Password</label>
-        <input type="password" name="password_repeat" id="passwordRepeatLabel"
-            class="form-control <?php echo (!empty($password_repeat_err)) ? 'is-invalid' : ''; ?>"
-            placeholder="Passwort wiederholen" required="" value="<?php echo $password_repeat; ?>">
+        <label for="confirmPasswordLabel" class="visually-hidden">Confirm Password</label>
+        <input type="password" name="confirm_password" id="confirmPasswordLabel"
+            class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
+            placeholder="Passwort wiederholen" required="">
         <span class="invalid-feedback">
-            <?php echo $password_repeat_err; ?>
+            <?php echo $confirm_password_err; ?>
         </span>
 
         <div class="checkbox mt-3 mb-3">
