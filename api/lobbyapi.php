@@ -8,15 +8,23 @@ include "../config.php";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     $mysqli = openConnection();
-    $sql = "SELECT * FROM lobby";
-    $result = $mysqli->query($sql);
+    if(isset($_GET['state'])) {
+        $state = $_GET['state'];
+        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ?");
+        $stmt->bind_param("s", $state);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    } else {
+        $sql = "SELECT * FROM lobby";
+        $result = $mysqli->query($sql);
+    }
 
     if ($result->num_rows > 0) {
         // Output data of each row
         $data = [];
         while($row = $result->fetch_assoc()) {
             $data[] = $row;
-    }
+        }
         echo json_encode($data);
     } else {
         echo "0 results";
