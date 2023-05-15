@@ -1,5 +1,4 @@
 <?php
-    if(empty($_SESSION["sessionid"]));
-    header("Location: landingpage.php",true,301);
+    include_once("bits/sessioncheck.php");
     exit();
 ?>
