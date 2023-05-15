@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO lobby (state, gameid, player1id, player2id, winnerid) 
                     VALUES (?, ?, ?, ?, ?)";
             $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param("siisi",$data['state'], $data['gameid'], $data['player1id'], $data['player2id'], $data['winnerid']);
+            $stmt->bind_param("siiii",$data['state'], $data['gameid'], $data['player1id'], $data['player2id'], $data['winnerid']);
             $stmt->execute();
             $stmt->close();
             $mysqli->close();
