@@ -49,10 +49,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
             $mysqli->close();
     }
-    
 }
 
-
+if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
+    $data = json_decode(file_get_contents('php://input'), true);   
+    if(isset($data['lobbyid']) && isset($data['state']) && isset($data['gameid']) && isset($data['player1id'])) {
+        $mysqli = openConnection();
+    
+        // Fetch the existing record
+        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE lobbyid = ?");
+        $stmt->bind_param("i", $data['lobbyid']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $existingData = $result->fetch_assoc();
+    
+        // Use the existing values if the new ones are not provided
+        $data['player2id'] = isset($data['player2id']) ? $data['player2id'] : $existingData['player2id'];
+        $data['winnerid'] = isset($data['winnerid']) ? $data['winnerid'] : $existingData['winnerid'];
+        
+        $sql = "UPDATE lobby SET state=?, gameid=?, player1id=?, player2id=?, winnerid=? WHERE lobbyid=?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("siiiii", $data['state'], $data['gameid'], $data['player1id'], $data['player2id'], $data['winnerid'], $data['lobbyid']);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+    }
+}
 
 
 
