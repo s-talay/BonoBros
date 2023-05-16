@@ -3,6 +3,19 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
     include_once("bits/sessioncheck.php");
 }
 ?>
+
+<?php
+function logout()
+{
+    session_start();
+    $_SESSION = array();
+    session_destroy();
+    header("location: login.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html class="h-100" lang="de">
 
