@@ -4,16 +4,21 @@
         <h1 class="h3 mb-3 fw-normal">Registrieren</h1>
 
         <label for="emailLabel" class="visually-hidden">Email address</label>
-        <input type="email" name="email" id="emailLabel"
-            class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" placeholder="E-Mail"
-            required="">
+        <?php 
+        $success = '<input type="email" name="email" id="emailLabel" class="form-control is-invalid" placeholder="E-Mail" required="">';
+        $fail = '<input type="email" name="email" id="emailLabel" class="form-control" placeholder="E-Mail" required="">';
+        $result = ((!empty($email_err))?$success:$fail);
+        echo $result;
+        ?>
         <span class="invalid-feedback">
-            <?php echo $email_err; ?>
+            <?php 
+            echo $email_err; 
+            ?>
         </span>
 
         <label for="usernameLabel" class="visually-hidden">Username</label>
         <input type="text" name="username" id="usernameLabel"
-            class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" placeholder="Username"
+        <?php echo (!empty($username_err)) ? 'class="form-control is-invalid"' : 'class="form-control"'; ?> placeholder="Username"
             required="">
         <span class="invalid-feedback">
             <?php echo $username_err; ?>
@@ -21,7 +26,7 @@
 
         <label for="passwordLabel" class="visually-hidden">Password</label>
         <input type="password" name="password" id="passwordLabel"
-            class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" placeholder="Passwort"
+        <?php echo (!empty($password_err)) ? 'class="form-control is-invalid"' : 'class="form-control"'; ?> placeholder="Passwort"
             required="">
         <span class="invalid-feedback">
             <?php echo $password_err; ?>
@@ -29,7 +34,7 @@
 
         <label for="confirmPasswordLabel" class="visually-hidden">Confirm Password</label>
         <input type="password" name="confirm_password" id="confirmPasswordLabel"
-            class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
+             <?php echo (!empty($confirm_password_err)) ? 'class="form-control is-invalid"' : 'class="form-control"'; ?>
             placeholder="Passwort wiederholen" required="">
         <span class="invalid-feedback">
             <?php echo $confirm_password_err; ?>
@@ -43,4 +48,7 @@
             </a>
         </p>
     </form>
+    <script>
+        $()
+    </script>
 </div>
