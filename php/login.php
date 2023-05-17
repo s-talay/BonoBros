@@ -8,17 +8,13 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     exit;
 }
 
-require_once "config.php";
+require_once $root."/config.php";
 $pageStyles = '<link rel="stylesheet" href="/css/login.css">';
 $pageTitle = "Login";
-$pageContent = file_get_contents($root."content/login.php");
+$pageContent = file_get_contents($root."/content/login.php");
 include_once($root."/php/master.php");
 ?>
 <?php
-
-
-// Include config file
-require_once "config.php";
 
 // Define variables and initialize with empty values
 $username = $password = "";

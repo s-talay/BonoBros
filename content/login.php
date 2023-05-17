@@ -1,5 +1,5 @@
 <div id="form-wrapper" class="mx-auto my-5 text-center">
-    <form class="mx-auto form-signin" action="login.php" method="post">
+    <form class="mx-auto form-signin" action="/php/login.php" method="post">
         <h1 class="h3 mb-3 fw-normal">Login</h1>
 
         <label for="usernameLabel" class="visually-hidden">Username</label>
@@ -12,7 +12,7 @@
         <p>
             Noch kein Mitglied?
             <br>
-            <a href="register.php">
+            <a href="/php/register.php">
                 Registrieren
             </a>
         </p>

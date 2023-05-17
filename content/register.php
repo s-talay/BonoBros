@@ -1,6 +1,6 @@
 <div class="padding"></div>
 <div id="form-wrapper" class="mx-auto text-center">
-    <form class="mx-auto form-signin" action="register.php" method="post">
+    <form class="mx-auto form-signin" action="/php/register.php" method="post">
         <h1 class="h3 mb-3 fw-normal">Registrieren</h1>
 
         <label for="emailLabel" class="visually-hidden">Email address</label>
@@ -44,12 +44,12 @@
         <p>
             Bereits Mitglied?
             <br>
-            <a href="login.php">
+            <a href="/php/login.php">
                 Anmelden
             </a>
         </p>
     </form>
     <script>
-        $()
+        //TODO check password
     </script>
 </div>
