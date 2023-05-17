@@ -1,12 +1,21 @@
 <?php
+// Initialize the session
+session_start();
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("location: index.php");
+    exit;
+}
+
 require_once "config.php";
 $pageStyles = '<link rel="stylesheet" href="css/register.css">';
 $pageTitle = "Registrieren";
 $pageContent = file_get_contents("content/register.php");
-    include_once("master.php"); 
+include_once("master.php");
 ?>
 <?php
-function printConsole($data) {
+function printConsole($data)
+{
     $output = $data;
     if (is_array($output))
         $output = implode(',', $output);
@@ -15,42 +24,42 @@ function printConsole($data) {
 }
 // Include config file
 require_once "config.php";
- 
+
 // Define variables and initialize with empty values
 $email = $username = $password = $confirm_password = "";
 $email_err = $username_err = $password_err = $confirm_password_err = "";
- 
+
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     printConsole("POST");
- 
+   
     // Validate username
-    if(empty(trim($_POST["username"]))){
+    if (empty(trim($_POST["username"]))) {
         $username_err = "Please enter a username.";
-    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
         $username_err = "Username can only contain letters, numbers, and underscores.";
-    } else{
+    } else {
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE username = ?";
-        
+        $mysqli = openConnection();
         if($stmt = $mysqli->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_username);
-            
+
             // Set parameters
             $param_username = trim($_POST["username"]);
-            
+
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 // store result
                 $stmt->store_result();
-                
-                if($stmt->num_rows == 1){
+
+                if ($stmt->num_rows == 1) {
                     $username_err = "This username is already taken.";
-                } else{
+                } else {
                     $username = trim($_POST["username"]);
                 }
-            } else{
+            } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -60,30 +69,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Validate email
-    if(empty(trim($_POST["email"]))){
+    if (empty(trim($_POST["email"]))) {
         $email_err = "Please enter your email address.";
-    } else{
+    } else {
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE email = ?";
-        
-        if($stmt = $mysqli->prepare($sql)){
+
+        if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_email);
-            
+
             // Set parameters
             $param_email = trim($_POST["email"]);
-            
+
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 // store result
                 $stmt->store_result();
-                
-                if($stmt->num_rows == 1){
+
+                if ($stmt->num_rows == 1) {
                     $email_err = "This E-Mail has already been used.";
-                } else{
+                } else {
                     $email = trim($_POST["email"]);
                 }
-            } else{
+            } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -91,22 +100,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->close();
         }
     }
-    
+
     // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST["password"])) < 6){
+    if (empty(trim($_POST["password"]))) {
+        $password_err = "Please enter a password.";
+    } elseif (strlen(trim($_POST["password"])) < 6) {
         $password_err = "Password must have atleast 6 characters.";
-    } else{
+    } else {
         $password = trim($_POST["password"]);
     }
-    
+
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";     
-    } else{
+    if (empty(trim($_POST["confirm_password"]))) {
+        $confirm_password_err = "Please confirm password.";
+    } else {
         $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($password != $confirm_password)){
+        if (empty($password_err) && ($password != $confirm_password)) {
             $confirm_password_err = "Password did not match.";
         }
     }
@@ -114,22 +123,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     printConsole($username_err);
     printConsole($password_err);
     printConsole($confirm_password_err);
-    
+
     printConsole(empty($email_err));
     printConsole(empty($username_err));
     printConsole(empty($password_err));
     printConsole(empty($confirm_password_err));
-    
+
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)){
-        
+    if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
+
         // Prepare an insert statement
         $sql = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
-         
-        if($stmt = $mysqli->prepare($sql)){
+
+        if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("sss", $param_email, $param_username, $param_password);
-            
+
             // Set parameters
             $param_email = $email;
             $param_username = $username;
@@ -137,28 +146,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             printConsole($param_email);
             printConsole($param_username);
             printConsole($param_password);
-            
+
             // Attempt to execute the prepared statement
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 printConsole("1");
                 // Redirect to login page
                 // header("Location: login.php");
-                $stmt->close();// Close statement
+                $stmt->close(); // Close statement
                 echo "<script>window.location.href = 'login.php';</script>";
                 exit();
-            } else{
+            } else {
                 printConsole("2");
                 echo "Oops! Something went wrong. Please try again later.";
-                $stmt->close();// Close statement
+                $stmt->close(); // Close statement
             }
 
-        }else{
+        } else {
             printConsole("if stmt");
         }
-    }else{
+    } else {
         printConsole("if empty");
     }
-    
+
     // Close connection
     $mysqli->close();
 }
