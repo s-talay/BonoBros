@@ -1,5 +1,8 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+
+include_once($root."/bits/sessioncheck.php");
+
 if(isset($_GET['gamename'])){
     $gamename = $_GET['gamename'];
     if($gamename =="tictactoe"){

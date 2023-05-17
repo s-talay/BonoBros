@@ -7,5 +7,4 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
 } else {
     header("Location: /php/login.php", true, 301);
 }
-echo "TEST";
 ?>
