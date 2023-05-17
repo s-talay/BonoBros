@@ -1,9 +1,10 @@
 <?php
+$root = $_SERVER['DOCUMENT_ROOT'];
 // Initialize the session
 session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: index.php");
+    header("location: /php/index.php");
     exit;
 }
 
@@ -11,7 +12,7 @@ require_once "config.php";
 $pageStyles = '<link rel="stylesheet" href="css/register.css">';
 $pageTitle = "Registrieren";
 $pageContent = file_get_contents("content/register.php");
-include_once("master.php");
+include_once("/php/master.php");
 ?>
 <?php
 function printConsole($data)
@@ -23,7 +24,7 @@ function printConsole($data)
     echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 // Include config file
-require_once "config.php";
+require_once "/php/config.php";
 
 // Define variables and initialize with empty values
 $email = $username = $password = $confirm_password = "";

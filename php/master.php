@@ -1,6 +1,7 @@
 <?php
+$root = $_SERVER['DOCUMENT_ROOT'];
 if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SELF']) == 'register.php') {
-    include_once("bits/sessioncheck.php");
+    include_once($root."/bits/sessioncheck.php");
 }
 ?>
 
@@ -10,7 +11,7 @@ function logout()
     session_start();
     $_SESSION = array();
     session_destroy();
-    header("location: login.php");
+    header("location: /php/login.php");
     exit();
 }
 ?>
@@ -22,8 +23,9 @@ function logout()
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
     <?php
-    include_once("bits/stylelinks.php");
+    include_once($root."/bits/stylelinks.php");
     if (isset($pageStyles)) {
         echo $pageStyles;
     }
@@ -42,14 +44,14 @@ function logout()
 
 <body class="h-100">
     <?php
-    include_once("bits/header.php");
+    include_once($root."/bits/header.php");
     if (isset($pageContent)) {
         echo $pageContent;
     } else {
         echo "Error Loading Page";
     }
-    include_once("bits/footer.php");
-    include_once("bits/scripts.php");
+    include_once($root."/bits/footer.php");
+    include_once($root."/bits/scripts.php");
 
     if (isset($pageScripts)) {
         echo $pageScripts;
