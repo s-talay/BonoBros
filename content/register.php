@@ -4,12 +4,13 @@
         <h1 class="h3 mb-3 fw-normal">Registrieren</h1>
 
         <label for="emailLabel" class="visually-hidden">Email address</label>
-        <?php 
-        $success = '<input type="email" name="email" id="emailLabel" class="form-control is-invalid" placeholder="E-Mail" required="">';
-        $fail = '<input type="email" name="email" id="emailLabel" class="form-control" placeholder="E-Mail" required="">';
-        $result = ((!empty($email_err))?$success:$fail);
-        echo $result;
+        <?php
+            $success = '<input type="email" name="email" id="emailLabel" class="form-control is-invalid" placeholder="E-Mail" required="">';
+            $fail = '<input type="email" name="email" id="emailLabel" class="form-control" placeholder="E-Mail" required="">';
+            $result = (!empty($email_err) ? $success : $fail);
+            echo $result;
         ?>
+
         <span class="invalid-feedback">
             <?php 
             echo $email_err; 
