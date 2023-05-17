@@ -79,11 +79,8 @@
             });
             let td = $("<td>");
               let btn_join = $("<button class = 'btn_lobby_join'>Join</button>");
-              $(btn_join).on("click",(i)=>{
-                join_lobby(vals[0])
-              })
+              $(btn_join).on("click",(i)=>{join_lobby(vals[0])})
               $(btn_join).addClass("btn_lobby_join").appendTo($(td)); 
-              $(btn_join).addClass("btn_lobby_join").appendTo($(td));
               tr.append(td); // Append the table cell to the table row
               table.append(tr); // Append the table row to the table
             });
