@@ -1,11 +1,23 @@
 <?php
+//root variable überall für einfachheit
 $root = $_SERVER['DOCUMENT_ROOT'];
+
+if(isset($_GET["ajax"])){
+    $ajax = $_GET["ajax"];
+    if($ajax == ""){
+
+    }else if($ajax == ""){
+
+    }
+    exit();
+}
+
+
+// Session Zustand checken
 if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SELF']) == 'register.php') {
     include_once($root."/bits/sessioncheck.php");
 }
-?>
 
-<?php
 function logout()
 {
     session_start();
