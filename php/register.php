@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Redirect to login page
                 // header("Location: login.php");
                 $stmt->close(); // Close statement
-                echo "<script>window.location.href = 'login.php';</script>";
+                echo "<script>window.location.href = '/php/login.php';</script>";
                 exit();
             } else {
                 printConsole("2");
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             printConsole("if stmt");
         }
     } else {
-        printConsole("if empty");
+        
     }
 
     // Close connection
