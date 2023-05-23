@@ -11,8 +11,11 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 require_once $root."/config.php";
 $pageStyles = '<link rel="stylesheet" href="/css/register.css">';
 $pageTitle = "Registrieren";
-$pageContent = file_get_contents($root."/content/register.php");
-include_once($root."/php/master.php");
+ob_start(); // Start output buffering
+include($root . "/content/register.php");
+$pageContent = ob_get_clean(); // Get the contents of the included file and clear the buffer
+
+include_once($root . "/php/master.php");
 ?>
 <?php
 function printConsole($data)
