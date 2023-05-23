@@ -5,35 +5,38 @@ session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("location: /php/index.php");
-    exit;
+    exit();
 }
 
-require_once $root."/config.php";
-$pageStyles = '<link rel="stylesheet" href="/css/register.css">';
-$pageTitle = "Registrieren";
-ob_start(); // Start output buffering
-include($root . "/content/register.php");
-$pageContent = ob_get_clean(); // Get the contents of the included file and clear the buffer
+require_once($root . "/config.php");
 
-include_once($root . "/php/master.php");
-?>
-<?php
-function printConsole($data)
-{
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
 
 // Define variables and initialize with empty values
 $email = $username = $password = $confirm_password = "";
 $email_err = $username_err = $password_err = $confirm_password_err = "";
 
+function loadPage()
+{
+    global $root;
+    global $email_err;
+    global $username_err;
+    global $password_err;
+    global $confirm_password_err;
+    $pageStyles = '<link rel="stylesheet" href="/css/register.css">';
+    $pageTitle = "Registrieren";
+    ob_start(); // Start output buffering
+    include($root . "/content/register.php");
+    $pageContent = ob_get_clean(); // Get the contents of the included file and clear the buffer
+    include_once($root . "/php/master.php");
+}
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    loadPage();
+}
+
+
+
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    printConsole("POST");
 
     // Validate username
     if (empty(trim($_POST["username"]))) {
@@ -121,15 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $confirm_password_err = "Password did not match.";
         }
     }
-    printConsole($email_err);
-    printConsole($username_err);
-    printConsole($password_err);
-    printConsole($confirm_password_err);
-
-    printConsole(empty($email_err));
-    printConsole(empty($username_err));
-    printConsole(empty($password_err));
-    printConsole(empty($confirm_password_err));
 
     // Check input errors before inserting in database
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
@@ -145,32 +139,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_email = $email;
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            printConsole($param_email);
-            printConsole($param_username);
-            printConsole($param_password);
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
-                printConsole("1");
                 // Redirect to login page
                 // header("Location: login.php");
                 $stmt->close(); // Close statement
                 echo "<script>window.location.href = '/php/login.php';</script>";
                 exit();
             } else {
-                printConsole("2");
                 echo "Oops! Something went wrong. Please try again later.";
                 $stmt->close(); // Close statement
             }
-
         } else {
-            printConsole("if stmt");
         }
     } else {
-        
+        loadPage();//lädt jetzt mit den err Variablen gesetzt, also gibt einen Error zurück
     }
 
     // Close connection
     $mysqli->close();
 }
-?>

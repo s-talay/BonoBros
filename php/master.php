@@ -2,12 +2,10 @@
 //root variable überall für einfachheit
 $root = $_SERVER['DOCUMENT_ROOT'];
 
-if(isset($_GET["ajax"])){
+if (isset($_GET["ajax"])) {
     $ajax = $_GET["ajax"];
-    if($ajax == ""){
-
-    }else if($ajax == ""){
-
+    if ($ajax == "") {
+    } else if ($ajax == "") {
     }
     exit();
 }
@@ -15,7 +13,7 @@ if(isset($_GET["ajax"])){
 
 // Session Zustand checken
 if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SELF']) == 'register.php') {
-    include_once($root."/bits/sessioncheck.php");
+    include_once($root . "/bits/sessioncheck.php");
 }
 
 function logout()
@@ -38,7 +36,7 @@ function logout()
     <link rel="icon" href="/img/favicon.ico">
     <base href="/">
     <?php
-    include_once($root."/bits/stylelinks.php");
+    include_once($root . "/bits/stylelinks.php");
     if (isset($pageStyles)) {
         echo $pageStyles;
     }
@@ -53,18 +51,19 @@ function logout()
         }
         ?>
     </title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 
 <body class="h-100">
     <?php
-    include_once($root."/bits/header.php");
+    include_once($root . "/bits/header.php");
     if (isset($pageContent)) {
         echo $pageContent;
     } else {
         echo "Error Loading Page";
     }
-    include_once($root."/bits/footer.php");
-    include_once($root."/bits/scripts.php");
+    include_once($root . "/bits/footer.php");
+    include_once($root . "/bits/scripts.php");
 
     if (isset($pageScripts)) {
         echo $pageScripts;

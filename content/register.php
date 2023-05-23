@@ -55,22 +55,4 @@
             </a>
         </p>
     </form>
-    <script>
-    document.getElementById("form").addEventListener("submit", function(event) {
-        // Prevent default form submission
-        event.preventDefault();
-
-        // Additional actions you want to perform
-        // For example, you can use AJAX to send the form data to the server without reloading the page
-        // Here's a simple example using jQuery AJAX:
-        $.ajax({
-            url: "/php/register.php",
-            method: "POST",
-            data: $(this).serialize(),
-            success: function(response) {
-                $("");
-            }
-        });
-    });
-</script>
 </div>
