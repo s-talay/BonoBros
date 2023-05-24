@@ -8,7 +8,15 @@ include "../config.php";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     $mysqli = openConnection();
-    if(isset($_GET['state'])) {
+    if (isset($_GET['state']) && isset($_GET['player1id'])){
+        $state = $_GET['state'];
+        $player1id = $_GET['player1id'];
+        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ? AND player1id = ?");
+        $stmt->bind_param("si", $state,$player1id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }
+    elseif(isset($_GET['state'])) {
         $state = $_GET['state'];
         $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ?");
         $stmt->bind_param("s", $state);
@@ -47,6 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("siiii",$data['state'], $data['gameid'], $data['player1id'], $data['player2id'], $data['winnerid']);
             $stmt->execute();
             $stmt->close();
+
+
             $mysqli->close();
     }
 }

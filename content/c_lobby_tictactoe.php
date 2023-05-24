@@ -16,20 +16,49 @@
 </head>
 
 <body>
-   <button onclick="location.href='/php/lobby.php'">Create Lobby</button>
+   <button onclick= createLobby()>Create Lobby</button>
    <p></p>
    <div id="container"></div>
    <script>
+
+      var UserID;
+      var UserName;
+      var userIDAjax = new XMLHttpRequest();
+      userIDAjax.open("GET","/api/userid.php", false);
+      userIDAjax.onreadystatechange = function(){
+         var jsonRes = JSON.parse(userIDAjax.responseText);
+         UserID = jsonRes.id;
+         UserName =jsonRes.username;
+      }
+      userIDAjax.send();
+      
       function createLobby(){
          
-      }
+         var url = '/api/lobbyapi.php';
+         var xhr = new XMLHttpRequest();
+         xhr.open("POST",url, false);
+         // Send the proper header information along with the request
+         xhr.setRequestHeader('Content-Type', 'application/json');
+
+         xhr.onreadystatechange = function () {
+         if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+          };
+         };
+
+         var data = JSON.stringify({player1id: UserID, gameid: 1, state: "open"}); // Replace with your data
+
+         xhr.send(data);
+         console.log(data);
+         document.location.href = "/php/lobby.php";
+      };
+
       function join_lobby(lobby_id) {
          alert(lobby_id);
       }
 
       // Function to convert JSON data to HTML table
       function convert() {
-
 
          var jsonData = [];
          var xhr = new XMLHttpRequest();
@@ -41,7 +70,7 @@
                var jsonResponse = JSON.parse(xhr.responseText);
                // Assuming the JSON response is an array
                jsonData = jsonResponse;
-               console.log(jsonData);
+
                // Now you can process this array as per your requirement
                // Get the container element where the table will be inserted
          let container = $("#container");
