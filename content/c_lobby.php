@@ -1,4 +1,4 @@
-<button onclick="location.href='lobby_tictactoe.php'">Back</button>
+<button onclick="location.href='/php/lobby_tictactoe.php'">Back</button>
 
 <script>
     function convert() {

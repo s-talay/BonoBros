@@ -16,7 +16,7 @@
 </head>
 
 <body>
-   <button onclick="location.href='lobby.php'">Create Lobby</button>
+   <button onclick="location.href='/php/lobby.php'">Create Lobby</button>
    <p></p>
    <div id="container"></div>
    <script>
