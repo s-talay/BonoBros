@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Erstellungszeit: 03. Mai 2023 um 15:33
--- Server-Version: 10.4.27-MariaDB
--- PHP-Version: 8.2.0
+-- Host: localhost
+-- Generation Time: May 31, 2023 at 04:23 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `bonobros`
+-- Database: `bonobros`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `game`
+-- Table structure for table `game`
 --
 
 CREATE TABLE `game` (
@@ -35,7 +35,7 @@ CREATE TABLE `game` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `lobby`
+-- Table structure for table `lobby`
 --
 
 CREATE TABLE `lobby` (
@@ -43,14 +43,21 @@ CREATE TABLE `lobby` (
   `state` varchar(30) NOT NULL,
   `gameid` int(10) UNSIGNED NOT NULL,
   `player1id` int(10) UNSIGNED NOT NULL,
-  `player2id` int(10) UNSIGNED NOT NULL,
-  `winnerid` int(10) UNSIGNED NOT NULL
+  `player2id` int(10) UNSIGNED DEFAULT NULL,
+  `winnerid` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lobby`
+--
+
+INSERT INTO `lobby` (`lobbyid`, `state`, `gameid`, `player1id`, `player2id`, `winnerid`) VALUES
+(1, 'open', 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `moves_tictactoe`
+-- Table structure for table `moves_tictactoe`
 --
 
 CREATE TABLE `moves_tictactoe` (
@@ -63,7 +70,7 @@ CREATE TABLE `moves_tictactoe` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -71,40 +78,43 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT 0,
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`) VALUES
-(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', '2023-05-03 15:39:12');
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `admin`, `enabled`, `created_at`) VALUES
+(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', 1, 1, '2023-05-03 15:39:12'),
+(7, 'user@user.de', 'user', '$2y$10$rHjjO47HsB1fdYO/uVey7.RQRcxM/eE0AWrHgqQ6DpBMErXKGdOsG', 0, 1, '2023-05-31 16:20:29');
 
 --
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `game`
+-- Indexes for table `game`
 --
 ALTER TABLE `game`
   ADD PRIMARY KEY (`gameid`);
 
 --
--- Indizes für die Tabelle `lobby`
+-- Indexes for table `lobby`
 --
 ALTER TABLE `lobby`
   ADD PRIMARY KEY (`lobbyid`);
 
 --
--- Indizes für die Tabelle `moves_tictactoe`
+-- Indexes for table `moves_tictactoe`
 --
 ALTER TABLE `moves_tictactoe`
   ADD PRIMARY KEY (`moveid`);
 
 --
--- Indizes für die Tabelle `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -112,32 +122,32 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `game`
+-- AUTO_INCREMENT for table `game`
 --
 ALTER TABLE `game`
   MODIFY `gameid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `lobby`
+-- AUTO_INCREMENT for table `lobby`
 --
 ALTER TABLE `lobby`
-  MODIFY `lobbyid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `lobbyid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT für Tabelle `moves_tictactoe`
+-- AUTO_INCREMENT for table `moves_tictactoe`
 --
 ALTER TABLE `moves_tictactoe`
   MODIFY `moveid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
