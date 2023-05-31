@@ -48,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 }
 ### Player 1 creates a Lobby, put gameid into body, Userid comes from the session
+### returns the newly created lobby from the person
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     if(isset($data['gameid'])){
