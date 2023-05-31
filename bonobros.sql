@@ -71,9 +71,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
-  `admin` BOOLEAN NOT NULL DEFAULT FALSE,
-  `enabled` BOOLEAN NOT NULL DEFAULT TRUE
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -81,7 +79,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`) VALUES
-(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', '2023-05-03 15:39:12',1,1);
+(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', '2023-05-03 15:39:12');
 
 --
 -- Indizes der exportierten Tabellen
