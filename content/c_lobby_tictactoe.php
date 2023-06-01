@@ -17,6 +17,7 @@
 
 <body>
    <button onclick= createLobby()>Create Lobby</button>
+   <button onclick= "location.href='/php/lobby.php'">My Lobbys</button>
    <p></p>
    <div id="container"></div>
    <script>
@@ -46,7 +47,7 @@
           };
          };
 
-         var data = JSON.stringify({player1id: UserID, gameid: 1, state: "open"}); 
+         var data = JSON.stringify({gameid: 1}); 
 
          xhr.send(data);
          console.log(data);
@@ -67,7 +68,7 @@
           };
          };
 
-         var data = JSON.stringify({lobbyid: lobby_id, player2id: UserID, state: "running"}); 
+         var data = JSON.stringify({lobbyid: lobby_id}); 
 
          xhr.send(data);
          document.location.href = "/php/lobby.php";

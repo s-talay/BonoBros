@@ -23,7 +23,16 @@ if(!check_session()){
 ### holt alle lobbys und filtered falls mitgegeben nach ?state="open" etc...
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
-    if(isset($_GET['state'])) {
+    #searches for lobbys with state and playerid
+    if(isset($_GET['state']) && isset($_GET['playerid'])){
+        $state = $_GET['state'];
+        $playerid = $_GET['playerid'];
+        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ? AND (player1id=? OR player2id = ?)");
+        $stmt->bind_param("sii", $state,$playerid,$playerid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    }
+    elseif(isset($_GET['state'])) {
         $state = $_GET['state'];
         $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ?");
         $stmt->bind_param("s", $state);
@@ -33,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $sql = "SELECT * FROM lobby";
         $result = $mysqli->query($sql);
     }
+
 
     if ($result->num_rows > 0) {
         // Output data of each row
