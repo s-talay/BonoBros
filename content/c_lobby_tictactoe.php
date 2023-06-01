@@ -46,7 +46,7 @@
           };
          };
 
-         var data = JSON.stringify({player1id: UserID, gameid: 1, state: "open"}); // Replace with your data
+         var data = JSON.stringify({player1id: UserID, gameid: 1, state: "open"}); 
 
          xhr.send(data);
          console.log(data);
@@ -54,7 +54,23 @@
       };
 
       function join_lobby(lobby_id) {
-         alert(lobby_id);
+         //alert(lobby_id);
+         var url = '/api/lobbyapi.php';
+         var xhr = new XMLHttpRequest();
+         xhr.open("PATCH",url, false);
+         // Send the proper header information along with the request
+         xhr.setRequestHeader('Content-Type', 'application/json');
+
+         xhr.onreadystatechange = function () {
+         if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+          };
+         };
+
+         var data = JSON.stringify({lobbyid: lobby_id, player2id: UserID, state: "running"}); 
+
+         xhr.send(data);
+         document.location.href = "/php/lobby.php";
       }
 
       // Function to convert JSON data to HTML table
