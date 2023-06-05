@@ -27,14 +27,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if(isset($_GET['state']) && isset($_GET['playerid'])){
         $state = $_GET['state'];
         $playerid = $_GET['playerid'];
-        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ? AND (player1id=? OR player2id = ?)");
+        $stmt = $mysqli->prepare("SELECT l.lobbyid,l.state,g.gamename as 'Game',us1.Username as 'User 1' ,us2.Username as 'User 2'
+                                FROM lobby as l
+                                join users AS us1 ON us1.id = l.player1id 
+                                left join users AS us2 ON us2.id = l.player2id
+                                join game AS g ON g.gameid = l.gameid
+                                WHERE state = ? 
+                                AND (player1id=? OR player2id = ?)");
         $stmt->bind_param("sii", $state,$playerid,$playerid);
         $stmt->execute();
         $result = $stmt->get_result();
     }
     elseif(isset($_GET['state'])) {
         $state = $_GET['state'];
-        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = ?");
+        $stmt = $mysqli->prepare("SELECT l.lobbyid,l.state,g.gamename as 'Game',us1.Username as 'User 1' ,us2.Username as 'User 2'
+                            FROM lobby as l
+                            join users AS us1 ON us1.id = l.player1id 
+                            left join users AS us2 ON us2.id = l.player2id
+                            join game AS g ON g.gameid = l.gameid
+                            WHERE state = ?");
         $stmt->bind_param("s", $state);
         $stmt->execute();
         $result = $stmt->get_result();

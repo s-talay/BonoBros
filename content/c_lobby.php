@@ -34,6 +34,10 @@
 
     }
 
+    function close_lobby(){
+
+    }
+
     function convert_lobby_open() {
 
         var jsonData = [];
@@ -68,7 +72,7 @@
             tr.append(th); // Append the header cell to the header row
          });
          let th = $("<th>");
-         th.text("Enter Game"); // Set the column name as the text of the header cell
+         th.text("Close Lobby"); // Set the column name as the text of the header cell
          tr.append(th); // Append the header cell to the header row
 
          thead.append(tr); // Append the header row to the header
@@ -88,9 +92,9 @@
                tr.append(td); // Append the table cell to the table row
             });
             let td = $("<td>");
-              let btn_join = $("<button class = 'btn_lobby_join'>Enter Game</button>");
-              $(btn_join).on("click",(i)=>{enter_Game(vals[0])})
-              $(btn_join).addClass("btn_lobby_join").appendTo($(td)); 
+              let btn_join = $("<button class = 'btn_lobby_close'>Close Lobby</button>");
+              $(btn_join).on("click",(i)=>{close_lobby(vals[0])})
+              $(btn_join).addClass("btn_lobby_close").appendTo($(td)); 
               tr.append(td); // Append the table cell to the table row
               table.append(tr); // Append the table row to the table
             });

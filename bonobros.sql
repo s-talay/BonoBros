@@ -32,6 +32,8 @@ CREATE TABLE `game` (
   `gamename` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `game`(`gameid`, `gamename`) VALUES ('1','Tic-Tac-Toe');
+
 -- --------------------------------------------------------
 
 --
