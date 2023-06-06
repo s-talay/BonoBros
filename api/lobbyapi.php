@@ -5,7 +5,8 @@ error_reporting(E_ALL);
 include "../config.php";
 session_start();
 
-function check_session() :bool {
+function check_session(): bool
+{
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
         return true;
     } else {
@@ -14,17 +15,17 @@ function check_session() :bool {
 }
 
 
-if(!check_session()){
+if (!check_session()) {
     header('HTTP/1.0 403 Forbidden');
     die;
-} 
+}
 
 
-### holt alle lobbys und filtered falls mitgegeben nach ?state="open" etc...
+# holt alle lobbys und filtered falls mitgegeben nach ?state="open" etc...
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     #searches for lobbys with state and playerid
-    if(isset($_GET['state']) && isset($_GET['playerid'])){
+    if (isset($_GET['state']) && isset($_GET['playerid'])) {
         $state = $_GET['state'];
         $playerid = $_GET['playerid'];
         $stmt = $mysqli->prepare("SELECT l.lobbyid,l.state,g.gamename as 'Game',us1.Username as 'User 1' ,us2.Username as 'User 2'
@@ -34,11 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                                 join game AS g ON g.gameid = l.gameid
                                 WHERE state = ? 
                                 AND (player1id=? OR player2id = ?)");
-        $stmt->bind_param("sii", $state,$playerid,$playerid);
+        $stmt->bind_param("sii", $state, $playerid, $playerid);
         $stmt->execute();
         $result = $stmt->get_result();
-    }
-    elseif(isset($_GET['state'])) {
+    } elseif (isset($_GET['state'])) {
         $state = $_GET['state'];
         $stmt = $mysqli->prepare("SELECT l.lobbyid,l.state,g.gamename as 'Game',us1.Username as 'User 1' ,us2.Username as 'User 2'
                             FROM lobby as l
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ($result->num_rows > 0) {
         // Output data of each row
         $data = [];
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
         echo json_encode($data);
@@ -68,18 +68,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $mysqli->close();
 
 }
-### Player 1 creates a Lobby, put gameid into body, Userid comes from the session
-### returns the newly created lobby from the person
+# Player 1 creates a Lobby, put gameid into body, Userid comes from the session
+# returns the newly created lobby from the person
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
-    if(isset($data['gameid'])){
-            $sql = "INSERT INTO lobby (state, gameid, player1id, player2id, winnerid) 
+    if (isset($data['gameid'])) {
+        $sql = "INSERT INTO lobby (state, gameid, player1id, player2id, winnerid) 
                     VALUES ('open', ?, ?, null, null)";
-            $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param("ii", $data['gameid'], $_SESSION['id']);
-            $stmt->execute();
-            $stmt->close();
-            
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param("ii", $data['gameid'], $_SESSION['id']);
+        $stmt->execute();
+        $stmt->close();
+
     }
     $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE state = 'open' AND player1id = ? ORDER BY lobbyid desc LIMIT 1;");
     $stmt->bind_param("i", $_SESSION['id']);
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         // Output data of each row
         $data = [];
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
         echo json_encode($data);
@@ -97,34 +97,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $mysqli->close();
-    
+
 }
-### Player 2 Joins the given lobby per Patch request takes the UserId from the Session
+# Player 2 Joins the given lobby per Patch request takes the UserId from the Session
 if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
-    $data = json_decode(file_get_contents('php://input'), true);   
-    if(isset($data['lobbyid'])) {
-    
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (isset($data['lobbyid'])) {
+
         // Fetch the existing record
         $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE lobbyid = ?");
         $stmt->bind_param("i", $data['lobbyid']);
         $stmt->execute();
         $result = $stmt->get_result();
         $existingData = $result->fetch_assoc();
-        if($existingData['player1id'] != $_SESSION['id'] && $existingData['state'] == "open"){
-        // Use the existing values if the new ones are not provided
-        $sql = "UPDATE lobby SET state='running',player2id=? WHERE lobbyid=?";
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("ii",$_SESSION['id'], $data['lobbyid']);
-        $stmt->execute();
-        $stmt->close();
-        $mysqli->close();
-        }
-        else echo "Fehler";
+        if ($existingData['player1id'] != $_SESSION['id'] && $existingData['state'] == "open") {
+            // Use the existing values if the new ones are not provided
+            $sql = "UPDATE lobby SET state='running',player2id=? WHERE lobbyid=?";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("ii", $_SESSION['id'], $data['lobbyid']);
+            $stmt->execute();
+            $stmt->close();
+            $mysqli->close();
+        } else
+            echo "Fehler";
 
     }
 }
 
+# Player 1 deletes Lobby if its open
+if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (isset($data['lobbyid'])) {
 
+        // Fetch the existing record
+        $stmt = $mysqli->prepare("SELECT * FROM lobby WHERE lobbyid = ?");
+        $stmt->bind_param("i", $data['lobbyid']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $existingData = $result->fetch_assoc();
+        if ($existingData['player1id'] == $_SESSION['id'] && $existingData['state'] == "open") {
+            // Use the existing values if the new ones are not provided
+            $sql = "DELETE FROM lobby WHERE lobbyid=?";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("i", $data['lobbyid']);
+            $stmt->execute();
+            $stmt->close();
+            $mysqli->close();
+        } else
+            echo "Fehler";
+
+    }
+}
 
 
 ?>

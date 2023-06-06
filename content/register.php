@@ -1,5 +1,6 @@
 <div class="padding"></div>
 <div id="form-wrapper" class="mx-auto text-center">
+    
     <form id="form" class="mx-auto form-signin" action="/php/register.php" method="post">
         <h1 class="h3 mb-3 fw-normal">Registrieren</h1>
 
@@ -55,4 +56,45 @@
             </a>
         </p>
     </form>
+    <script>
+        const regex = new RegExp("/^[a-zA-Z0-9_]+$/");
+        const form = $("#form");
+        form.submit((event)=>{
+            event.preventDefault();
+            function openDialog(message) {
+            // $('<div>' + message + '</div>').dialog({
+            //     modal: true,
+            //     title: 'Fehler',
+            //     buttons: {
+            //     Ok: function() {
+            //         $(this).dialog('close');
+            //     }
+            //     }
+            // });
+            $("<div>Test message</div>").dialog();
+            }
+            
+
+            const nameInput = $("#usernameLabel");
+            if(regex.test(nameInput)){
+                $.ajax({
+                    url: form.attr('action'),
+                    method: form.attr('method'),
+                    data: form.serialize(),
+                    success: function(response) {
+                    },
+                    error: function(error) {
+                        openDialog(error);
+                    }
+                });
+            }else{
+                openDialog("Username ist kacke");
+            }
+        });
+    </script>
+    <script>
+        // const form = $("#form");
+        
+        // form.addEventListener("submit", submitForm);
+    </script>
 </div>
