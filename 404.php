@@ -88,8 +88,8 @@
 <body>
     <section class="notFound">
         <div class="img">
-            <img src="https://assets.codepen.io/5647096/backToTheHomepage.png" alt="Back to the Homepage" />
-            <img src="https://assets.codepen.io/5647096/Delorean.png" alt="El Delorean, El Doc y Marti McFly" />
+            <img src="/img/backToTheHomepage.webp" alt="Back to the Homepage" />
+            <img src="/img/Delorean.webp" alt="Delorean"/>
         </div>
         <div class="text">
             <h1>404</h1>
