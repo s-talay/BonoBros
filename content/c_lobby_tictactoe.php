@@ -54,28 +54,6 @@
          document.location.href = "/php/lobby.php";
       };
 
-      function close_lobby(lobby_id){
-        //alert(lobby_id);
-        var url = '/api/lobbyapi.php';
-         var xhr = new XMLHttpRequest();
-         xhr.open("DELETE", url, false);
-         // Send the proper header information along with the request
-         xhr.setRequestHeader('Content-Type', 'application/json');
-
-         xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-               console.log(xhr.responseText);
-            };
-         };
-
-         var data = JSON.stringify({
-            lobbyid: lobby_id
-         });
-
-         xhr.send(data);
-         document.location.href = "/php/lobby.php";
-      }
-
       function join_lobby(lobby_id) {
          //alert(lobby_id);
          var url = '/api/lobbyapi.php';

@@ -41,6 +41,7 @@ function logout()
         echo $pageStyles;
     }
 
+    include_once($root . "/bits/scripts.php");
     ?>
     <title>
         <?php
@@ -55,7 +56,6 @@ function logout()
 
 <body class="h-100">
     <?php
-    include_once($root . "/bits/scripts.php");
     include_once($root . "/bits/header.php");
     if (isset($pageContent)) {
         echo $pageContent;

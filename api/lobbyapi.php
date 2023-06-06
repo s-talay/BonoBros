@@ -21,7 +21,6 @@ if (!check_session()) {
 }
 
 
-# holt alle lobbys und filtered falls mitgegeben nach ?state="open" etc...
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     #searches for lobbys with state and playerid
@@ -68,8 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $mysqli->close();
 
 }
-# Player 1 creates a Lobby, put gameid into body, Userid comes from the session
-# returns the newly created lobby from the person
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['gameid'])) {
@@ -99,7 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mysqli->close();
 
 }
-# Player 2 Joins the given lobby per Patch request takes the UserId from the Session
 if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['lobbyid'])) {
@@ -124,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
     }
 }
 
-# Player 1 deletes Lobby if its open
 if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['lobbyid'])) {
@@ -148,6 +143,4 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
 
     }
 }
-
-
 ?>

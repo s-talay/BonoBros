@@ -62,16 +62,15 @@
         form.submit((event)=>{
             event.preventDefault();
             function openDialog(message) {
-            // $('<div>' + message + '</div>').dialog({
-            //     modal: true,
-            //     title: 'Fehler',
-            //     buttons: {
-            //     Ok: function() {
-            //         $(this).dialog('close');
-            //     }
-            //     }
-            // });
-            $("<div>Test message</div>").dialog();
+            $('<div>' + message + '</div>').dialog({
+                modal: true,
+                title: 'Fehler',
+                buttons: {
+                Ok: function() {
+                    $(this).dialog('close');
+                }
+                }
+            });
             }
             
 
