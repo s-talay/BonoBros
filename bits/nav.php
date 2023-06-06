@@ -9,7 +9,8 @@
                 echo "<button class='btn btn-lg btn-warning mx-2' onclick='admin()'>Admin</button>";
             }
             if(basename($_SERVER["PHP_SELF"]) != "login.php" && basename($_SERVER["PHP_SELF"]) != "register.php"){
-                echo "<button class='btn btn-lg btn-danger' onclick='logout()'>Logout</button>";
+                echo "<button class='btn btn-lg btn-primary mx-2' onclick='profil()'>Profil</button>";
+                echo "<button class='btn btn-lg btn-danger mx-2' onclick='logout()'>Logout</button>";
             }
             ?>
         </div>
@@ -17,6 +18,9 @@
         <script>
             function logout(){
                 window.location.href = "/php/logout.php";
+            }
+            function profil(){
+                window.location.href = "/php/profil.php";
             }
             <?php if($_SESSION["admin"] == 1){?>
                 function admin(){
