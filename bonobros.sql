@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 31, 2023 at 04:18 PM
+-- Generation Time: May 31, 2023 at 04:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,9 +43,16 @@ CREATE TABLE `lobby` (
   `state` varchar(30) NOT NULL,
   `gameid` int(10) UNSIGNED NOT NULL,
   `player1id` int(10) UNSIGNED NOT NULL,
-  `player2id` int(10) UNSIGNED NOT NULL,
-  `winnerid` int(10) UNSIGNED NOT NULL
+  `player2id` int(10) UNSIGNED DEFAULT NULL,
+  `winnerid` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lobby`
+--
+
+INSERT INTO `lobby` (`lobbyid`, `state`, `gameid`, `player1id`, `player2id`, `winnerid`) VALUES
+(1, 'open', 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -71,17 +78,18 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
   `admin` tinyint(1) NOT NULL DEFAULT 0,
-  `enabled` tinyint(1) NOT NULL DEFAULT 1
+  `enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `username`, `password`, `created_at`, `admin`, `enabled`) VALUES
-(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', '2023-05-03 15:39:12', 1, 1);
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `admin`, `enabled`, `created_at`) VALUES
+(1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', 1, 1, '2023-05-03 15:39:12'),
+(7, 'user@user.de', 'user', '$2y$10$rHjjO47HsB1fdYO/uVey7.RQRcxM/eE0AWrHgqQ6DpBMErXKGdOsG', 0, 1, '2023-05-31 16:20:29');
 
 --
 -- Indexes for dumped tables
@@ -127,7 +135,7 @@ ALTER TABLE `game`
 -- AUTO_INCREMENT for table `lobby`
 --
 ALTER TABLE `lobby`
-  MODIFY `lobbyid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `lobbyid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `moves_tictactoe`
@@ -139,7 +147,7 @@ ALTER TABLE `moves_tictactoe`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

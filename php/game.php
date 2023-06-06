@@ -10,6 +10,11 @@ if(isset($_GET['gamename'])){
         $pageScripts='<script src="/js/tictactoe.js"></script>';
         $pageStyles='<link rel="stylesheet" href="/css/tictactoe.css">';
         $pageContent= file_get_contents($root."/content/tictactoe.php");
+    }else if($gamename =="tictac"){
+        $pageTitle="TicTacToe";
+        // $pageScripts='<script src="/js/tictactoe.js"></script>';
+        // $pageStyles='<link rel="stylesheet" href="/css/tictactoe.css">';
+        $pageContent= file_get_contents($root."/content/c_.php");
     }else{
     }
     include_once($root."/php/master.php");
