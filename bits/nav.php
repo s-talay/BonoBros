@@ -5,7 +5,7 @@
         </a>
         <div>
             <?php
-            if($_SESSION["admin"] == 1){
+            if(isset($_SESSION["admin"]) && $_SESSION["admin"] == 1){
                 echo "<button class='btn btn-lg btn-warning mx-2' onclick='admin()'>Admin</button>";
             }
             if(basename($_SERVER["PHP_SELF"]) != "login.php" && basename($_SERVER["PHP_SELF"]) != "register.php"){
