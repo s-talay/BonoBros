@@ -48,6 +48,15 @@
                             <p id="admin" class="text-muted mb-0"></p>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <p class="mb-0">Erstellt am</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p id="created_at" class="text-muted mb-0"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,11 +85,13 @@
                 var nameField = jsonRes.username;
                 var emailField = jsonRes.email;
                 var adminField = jsonRes.admin;
+                var created_atField = jsonRes.created_at;
 
                 $("#id").text(idField);
                 $("#username").text(nameField);
                 $("#email").text(emailField);
                 $("#admin").text(adminField ? "Admin" : "Not Admin");
+                $("#created_at").text(created_atField);
             }
             userDataAjax.send();
         }
