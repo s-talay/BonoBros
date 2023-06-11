@@ -61,25 +61,28 @@
             var jsonRes = JSON.parse(userIDAjax.responseText);
             UserID = jsonRes.id;
             UserName = jsonRes.username;
-            getUserData(UserID,UserName);
+            requestAndDisplayerUserData(UserID);
         }
         userIDAjax.send();
-        function getUserData(UserID,UserName) {
+
+        function requestAndDisplayerUserData(id) {
             var url = "/api/profileapi.php";
-            var userIDAjax = new XMLHttpRequest();
-            userIDAjax.open("GET", url+"?userid="+UserID, true);
-            userIDAjax.onreadystatechange = function () {
-                var jsonRes = JSON.parse(userIDAjax.responseText);
-                UserID = jsonRes.id;
-                UserName = jsonRes.username;
-                var UserEmail = jsonRes.email;
-                var UserAdmin = jsonRes.admin;
-                $("#id").text(UserID);
-                $("#username").text(UserName);
-                $("#email").text(UserEmail);
-                $("#admin").text(UserAdmin?"Admin":"Not Admin");
+            var userDataAjax = new XMLHttpRequest();
+            userDataAjax.open("GET", url + "?userid=" + id, true);
+            userDataAjax.onreadystatechange = function () {
+                var jsonRes = JSON.parse(userDataAjax.responseText);
+
+                var idField = jsonRes.id;
+                var nameField = jsonRes.username;
+                var emailField = jsonRes.email;
+                var adminField = jsonRes.admin;
+
+                $("#id").text(idField);
+                $("#username").text(nameField);
+                $("#email").text(emailField);
+                $("#admin").text(adminField ? "Admin" : "Not Admin");
             }
-            userIDAjax.send();
+            userDataAjax.send();
         }
     </script>
 </section>
