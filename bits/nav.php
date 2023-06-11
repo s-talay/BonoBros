@@ -22,7 +22,7 @@
             function profil(){
                 window.location.href = "/php/profil.php";
             }
-            <?php if($_SESSION["admin"] == 1){?>
+            <?php if(isset($_SESSION["admin"]) && $_SESSION["admin"] == 1){?>
                 function admin(){
                     window.location.href = "/php/admin.php";
                 }

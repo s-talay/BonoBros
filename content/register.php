@@ -1,6 +1,6 @@
 <div class="padding"></div>
 <div id="form-wrapper" class="mx-auto text-center">
-    
+
     <form id="form" class="mx-auto form-signin" action="/php/register.php" method="post">
         <h1 class="h3 mb-3 fw-normal">Registrieren</h1>
 
@@ -30,7 +30,8 @@
         <?php
         $errorClass = (!empty($password_err) ? 'is-invalid' : '');
         ?>
-        <input type="password" name="password" id="passwordLabel" class="form-control <?php echo $errorClass; ?>" placeholder="Passwort" required="">
+        <input type="password" name="password" id="passwordLabel" class="form-control <?php echo $errorClass; ?>"
+            placeholder="Passwort" required="">
 
         <span class="invalid-feedback">
             <?php echo $password_err; ?>
@@ -47,7 +48,7 @@
             <?php echo $confirm_password_err; ?>
         </span>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Registrieren</button>
         <p>
             Bereits Mitglied?
             <br>
@@ -57,43 +58,42 @@
         </p>
     </form>
     <script>
-        const regex = new RegExp("/^[a-zA-Z0-9_]+$/");
+        const regex = new RegExp(/^[a-zA-Z0-9_]+$/);
         const form = $("#form");
-        form.submit((event)=>{
+        form.submit((event) => {
             event.preventDefault();
             function openDialog(message) {
-            $('<div>' + message + '</div>').dialog({
-                modal: true,
-                title: 'Fehler',
-                buttons: {
-                Ok: function() {
-                    $(this).dialog('close');
-                }
-                }
-            });
+                $('<div>' + message + '</div>').dialog({
+                    modal: true,
+                    title: 'Fehler',
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
             }
-            
 
-            const nameInput = $("#usernameLabel");
-            if(regex.test(nameInput)){
+
+            const nameInput = $("#usernameLabel").val();
+            if (regex.test(nameInput)) {
                 $.ajax({
                     url: form.attr('action'),
                     method: form.attr('method'),
                     data: form.serialize(),
-                    success: function(response) {
+                    success: function (response) {
+                        // window.location.href = "/php/login.php";
+                        document.open();
+                        document.write(response);
+                        document.close();
                     },
-                    error: function(error) {
+                    error: function (error) {
                         openDialog(error);
                     }
                 });
-            }else{
-                openDialog("Username ist kacke");
+            } else {
+                openDialog("Username darf nur alphanumerische Zeichen beinhalten.");
             }
         });
-    </script>
-    <script>
-        // const form = $("#form");
-        
-        // form.addEventListener("submit", submitForm);
     </script>
 </div>

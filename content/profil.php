@@ -165,14 +165,20 @@
                                     $("#error-dialog").dialog("open");
                                     return;
                                 }
-                                
-                                if(newPassword == currentPassword){
+
+                                if (newPassword == currentPassword) {
                                     $("#error-dialog").text("Das alte und neue Passwort sind identisch!");
                                     $("#error-dialog").dialog("open");
                                     return;
                                 }
 
-                                $("#dialog-confirm").dialog("open"); 
+                                if (newPassword.length < 6 || confirmPassword.length < 6) {
+                                    $("#error-dialog").text("Passwörter müssen mindestens 6 Zeichen lang sein");
+                                    $("#error-dialog").dialog("open");
+                                    return;
+                                }
+
+                                $("#dialog-confirm").dialog("open");
                             },
                             "Abbruch": function () {
                                 dialog.dialog("close");
@@ -191,9 +197,18 @@
                     modal: true,
                     buttons: {
                         "Ja, ich bin mir sicher": function () {
-                            $(this).dialog("close");
-                            dialog.dialog("close");
-                            // Add here your function to send the form data to your server.
+                            if (checkPassword()) {
+                                $(this).dialog("close");
+                                dialog.dialog("close");
+                                $("#error-dialog").text("Amogus");
+                                $("#error-dialog").dialog("open");
+                                return;
+                            } else {
+                                $("#error-dialog").text("Fehler, Passwort konnte nicht geändert werden.");
+                                $("#error-dialog").dialog("open");
+                                return;
+                            }
+
                         },
                         "Nein,doch nicht": function () {
                             $(this).dialog("close");
@@ -227,14 +242,20 @@
         </script>
         <script>
             function checkPassword(password) {
-                var ajax = new XMLHttpRequest();
-                ajax.open("POST", "/api/passwordchange.php", true);
-                ajax.onreadystatechange = function () {
-                    var res = ajax.responseText;
-                    console.log(res);
-                    
-                }
-                ajax.send();
+                return $.ajax({
+                    url: '/api/passwordchange.php',
+                    type: 'POST',
+                    data: {
+                        password: password
+                    }
+                })
+                    .then(function (response) {
+                        return response == 1 ? true : false;
+                    })
+                    .fail(function (error) {
+                        return false;
+                    });
             }
+
         </script>
 </section>
