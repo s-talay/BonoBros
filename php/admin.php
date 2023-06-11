@@ -2,7 +2,7 @@
 $root = $_SERVER['DOCUMENT_ROOT'];
 
 include_once($root."/bits/sessioncheck.php");
-if($_SESSION["admin"] != 1){
+if(!isset($_SESSION["admin"]) || $_SESSION["admin"] != 1){
     header("HTTP/1.0 404 Not Found");
     include($root."/404.php");
     exit();
