@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
     if(isset($data['admin'])&&isset($data['enabled'])&&isset($data['id'])) {
         $sql = "UPDATE users SET admin=?,enabled=? WHERE id=?";
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("iii",$_data["admin"],$_data["enabled"],$_data["id"]);
+        $stmt->bind_param("iii",$data["admin"],$data["enabled"],$data["id"]);
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
 
 }
 
-### holt alle lobbys und filtered falls mitgegeben nach ?state="open" etc...
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     $sql = "SELECT * FROM users";

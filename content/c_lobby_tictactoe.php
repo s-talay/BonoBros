@@ -55,7 +55,6 @@
       };
 
       function join_lobby(lobby_id) {
-         //alert(lobby_id);
          var url = '/api/lobbyapi.php';
          var xhr = new XMLHttpRequest();
          xhr.open("PATCH", url, false);
