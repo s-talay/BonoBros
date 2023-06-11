@@ -1,5 +1,7 @@
 <?php
-session_start();
+$root = $_SERVER['DOCUMENT_ROOT'];
+include($root."/bits/apisessioncheck.php");
+
 if($_SERVER["REQUEST_METHOD"] == "GET"){
     $obj = new stdClass();
     $obj->id = $_SESSION["id"];

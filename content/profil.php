@@ -72,7 +72,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button id="changePassword" type="button" onclick="changePassword();"
+                                    <button id="changePassword" type="button"
                                         class="btn btn-primary mt-2">Ändern</button>
                                 </div>
                             </div>
@@ -81,27 +81,28 @@
                 </div>
             </div>
         </div>
-        <div id="dialog-form" title="Change Password">
+        <div id="dialog-form" title="Passwort ändern">
             <form>
                 <fieldset>
-                    <label for="currentPassword">Current Password</label>
+                    <label for="currentPassword">Aktuelles Password</label>
                     <input type="password" name="currentPassword" id="currentPassword"
                         class="text ui-widget-content ui-corner-all">
 
-                    <label for="newPassword">New Password</label>
+                    <label for="newPassword">Neues Passwort</label>
                     <input type="password" name="newPassword" id="newPassword"
                         class="text ui-widget-content ui-corner-all">
 
-                    <label for="confirmPassword">Confirm New Password</label>
+                    <label for="confirmPassword">Bestätige neues Passwort</label>
                     <input type="password" name="confirmPassword" id="confirmPassword"
                         class="text ui-widget-content ui-corner-all">
                 </fieldset>
             </form>
         </div>
 
-        <div id="dialog-confirm" title="Confirm Action">
+        <div id="dialog-confirm" title="Bist du dir Sicher?">
             <p>Bist du dir sicher, dass du dein Passwort ändern willst?</p>
         </div>
+        <div id="error-dialog" title="Fehler"></div>
         <script></script>
         <script>
             var UserID;
@@ -138,7 +139,6 @@
                 userDataAjax.send();
             }
         </script>
-
         <script>
             $(function () {
                 var dialog, form,
@@ -149,10 +149,32 @@
                         width: 350,
                         modal: true,
                         buttons: {
-                            "Change password": function () {
-                                $("#dialog-confirm").dialog("open");
+                            "Passwort ändern": function () {
+                                var currentPassword = $("#currentPassword").val();
+                                var newPassword = $("#newPassword").val();
+                                var confirmPassword = $("#confirmPassword").val();
+
+                                if (currentPassword == "" || newPassword == "" || confirmPassword == "") {
+                                    $("#error-dialog").text("Du musst alle Felder ausfüllen!");
+                                    $("#error-dialog").dialog("open");
+                                    return;
+                                }
+
+                                if (newPassword !== confirmPassword) {
+                                    $("#error-dialog").text("Die Passwörter stimmen nicht überein!");
+                                    $("#error-dialog").dialog("open");
+                                    return;
+                                }
+                                
+                                if(newPassword == currentPassword){
+                                    $("#error-dialog").text("Das alte und neue Passwort sind identisch!");
+                                    $("#error-dialog").dialog("open");
+                                    return;
+                                }
+
+                                $("#dialog-confirm").dialog("open"); 
                             },
-                            Cancel: function () {
+                            "Abbruch": function () {
                                 dialog.dialog("close");
                             }
                         },
@@ -168,16 +190,28 @@
                     width: 400,
                     modal: true,
                     buttons: {
-                        "Yes, I'm sure": function () {
+                        "Ja, ich bin mir sicher": function () {
                             $(this).dialog("close");
                             dialog.dialog("close");
                             // Add here your function to send the form data to your server.
                         },
-                        Cancel: function () {
+                        "Nein,doch nicht": function () {
                             $(this).dialog("close");
                         }
                     }
                 });
+
+                $("#error-dialog").dialog({
+                    autoOpen: false, // Do not open the dialog by default
+                    modal: true, // Make the dialog modal
+                    buttons: {
+                        OK: function () {
+                            $(this).dialog("close"); // Close the dialog when "OK" is clicked
+                        }
+                    }
+                });
+
+
 
                 form = dialog.find("form").on("submit", function (event) {
                     event.preventDefault();
@@ -186,8 +220,21 @@
                 $("#changePassword").button().on("click", function () {
                     dialog.dialog("open");
                 });
+
+
             });
 
         </script>
-
+        <script>
+            function checkPassword(password) {
+                var ajax = new XMLHttpRequest();
+                ajax.open("POST", "/api/passwordchange.php", true);
+                ajax.onreadystatechange = function () {
+                    var res = ajax.responseText;
+                    console.log(res);
+                    
+                }
+                ajax.send();
+            }
+        </script>
 </section>

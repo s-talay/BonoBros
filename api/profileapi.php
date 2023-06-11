@@ -1,7 +1,9 @@
 <?php
-session_start();
+$root = $_SERVER['DOCUMENT_ROOT'];
+include($root."/bits/apisessioncheck.php");
+
 if($_SERVER["REQUEST_METHOD"] == "GET"){
-    $username = $_GET["userid"];
+    $username = $_GET["userid"];// ändern in username
     $obj = new stdClass();
     $obj->id = $_SESSION["id"];
     $obj->username = $_SESSION["username"];
