@@ -23,7 +23,7 @@ if (!check_session()) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['lobbyid']) && isset($data['cell'])) {
-        $pattern ="/[1-9][0-9]/";
+        $pattern ="/[0-9][0-9]/";
         if(preg_match($pattern,$data['cell'])){
             $sql = "SELECT * FROM moves_tictactoe WHERE lobbyid = ? AND movetype = ?";
             $stmt = $mysqli->prepare($sql);

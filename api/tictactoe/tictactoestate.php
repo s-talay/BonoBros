@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->bind_param("i", $lobbyid);
         $stmt->execute();
         $result = $stmt->get_result();
+        $stmt->close();
 
         if ($result->num_rows > 0) {
             // Output data of each row
@@ -42,9 +43,29 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 $data = $row;
             }
             echo json_encode($data);
-        } else {
-            echo ('{"active":0}');
-            die;
+        } 
+        else {
+            $lobbyid = $_GET['lobbyid'];
+            $stmt = $mysqli->prepare("SELECT l.player1id as currentPlayer,l.state,l.winnerid
+                                    FROM lobby l
+                                    WHERE l.lobbyid = ?");
+            $stmt->bind_param("i", $lobbyid);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->close();
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                $data;
+                while ($row = $result->fetch_assoc()) {
+                    $data = $row;
+                }
+                echo json_encode($data);
+            } 
+            else {
+                echo ('{"active":0}');
+                die;
+            }
+
         }
     }
     else {

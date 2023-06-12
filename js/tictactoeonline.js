@@ -68,13 +68,15 @@ async function fetchGameState() {
   const historyData = await historyResponse.json();
 
   currentPlayer = stateData.currentPlayer;
-
+  if(historyData){
+    historyData.forEach(move => {
+      console.log(move);
+      const cell = document.querySelector(`#cell${move.cell}`);
+      cell.textContent = move.player;
+    });
+  }
   // update all cells based on history data
-  historyData.forEach(move => {
-    console.log(move);
-    const cell = document.querySelector(`#cell${move.cell}`);
-    cell.textContent = move.player;
-  });
+
 
   checkWin();
 }
@@ -89,6 +91,7 @@ function handleCellClick(e) {
   cell.textContent = currentPlayer;
   updateMove(cell.id); // send your move to the server
   checkWin();
+  fetchGameState();
 }
 
 async function updateMove(cellId) {
