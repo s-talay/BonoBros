@@ -1,13 +1,16 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
 include($root . "/bits/apisessioncheck.php");
+if (!isset($_SESSION["username"])) {
+    die("Fataler Fehler ist eingetreten. Melde dich erneut an.");
+}
+$username = $_SESSION["username"];
 
 require($root . "/config.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_SESSION["username"];
-
+    global $username;
     $data = json_decode(file_get_contents('php://input'), true);
     $old_password = trim($data['oldPassword']);
     $new_password = trim($data['newPassword']);
@@ -24,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
                 echo true;
-                header("location: /php/logout.php");
+                logout();
             } else {
                 echo "SQL Fehler ist eingetreten.";
             }
@@ -67,5 +70,12 @@ function verifyPw($user, $pw)
     } else {
         return "SQL Fehler ist eingetreten. \n prepare statement failed";
     }
+}
+
+function logout()
+{
+    $_SESSION = array(); //leeren
+    session_destroy(); //Destroy
+    exit(); //close
 }
 ?>

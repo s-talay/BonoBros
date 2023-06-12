@@ -103,6 +103,7 @@
             <p>Bist du dir sicher, dass du dein Passwort ändern willst?</p>
         </div>
         <div id="error-dialog" title="Fehler"></div>
+        <div id="success-dialog" title="Password geändert"></div>
         <script></script>
         <script>
             var UserID;
@@ -198,19 +199,24 @@
                     width: 400,
                     modal: true,
                     buttons: {
-                        "Ja, ich bin mir sicher": function () {
-                            var check = checkPassword(currentPassword,newPassword);
-                            if (check == true) {
-                                $(this).dialog("close");
-                                dialog.dialog("close");
-                                $("#error-dialog").text("Amogus");
-                                $("#error-dialog").attr("title","Passwort geändert!");
-                                $("#error-dialog").dialog("open");
-                                return;
-                            } else {
-                                $("#error-dialog").text(check);
-                                $("#error-dialog").dialog("open");
-                                return;
+                        "Ja, ich bin mir sicher": async function () {
+                            try {
+                                var check = await checkPassword(currentPassword, newPassword);
+                                if (check === true) {
+                                    console.log("path 1");
+                                    $(this).dialog("close");
+                                    dialog.dialog("close");
+                                    $("#success-dialog").text("Dein Password wurde erfolgreich geändert!");
+                                    $("#success-dialog").dialog("open");
+                                    return;
+                                } else {
+                                    console.log("path 2");
+                                    $("#error-dialog").text(check);
+                                    $("#error-dialog").dialog("open");
+                                    return;
+                                }
+                            } catch (error) {
+                                console.error(error);
                             }
 
                         },
@@ -226,6 +232,16 @@
                     buttons: {
                         OK: function () {
                             $(this).dialog("close"); // Close the dialog when "OK" is clicked
+                        }
+                    }
+                });
+                $("#success-dialog").dialog({
+                    autoOpen: false, // Do not open the dialog by default
+                    modal: true, // Make the dialog modal
+                    buttons: {
+                        OK: function () {
+                            $(this).dialog("close"); // Close the dialog when "OK" is clicked
+                            location.reload();
                         }
                     }
                 });
@@ -245,20 +261,19 @@
 
         </script>
         <script>
-            function checkPassword(oldPassword, newPassword) {
-                return $.ajax({
-                    url: '/api/passwordchange.php',
-                    type: 'POST',
-                    data: JSON.stringify({oldPassword:oldPassword,newPassword:newPassword}),
-                    contentType: "application/json",
-                    dataType:"json"
-                })
-                    .then(function (response) {
-                        return response == 1 ? true : response;
-                    })
-                    .fail(function (error) {
-                        return error;
+            async function checkPassword(oldPassword, newPassword) {
+                try {
+                    const response = await $.ajax({
+                        url: '/api/passwordchange.php',
+                        type: 'POST',
+                        data: JSON.stringify({ oldPassword: oldPassword, newPassword: newPassword }),
+                        contentType: "application/json",
+                        dataType: "json"
                     });
+                    return response === 1 ? true : response;
+                } catch (error) {
+                    return error;
+                }
             }
 
         </script>
