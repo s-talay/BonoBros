@@ -7,6 +7,7 @@ const cells = document.querySelectorAll("td");
       if (cell.textContent !== "") {
         return;
       }
+      
       cell.textContent = currentPlayer;
       checkWin();
       togglePlayer();
