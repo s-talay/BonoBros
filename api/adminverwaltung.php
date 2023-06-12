@@ -13,8 +13,9 @@ function check_session() :bool {
     }
 }
 if(!check_session()){
-    header('HTTP/1.0 403 Forbidden');
-    die;
+    header("HTTP/1.0 404 Not Found");
+    include($root."/404.php");
+    exit();
 } 
 
 if ($_SERVER["REQUEST_METHOD"] == "PATCH") {

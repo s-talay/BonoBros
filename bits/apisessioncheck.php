@@ -4,10 +4,10 @@ session_start();
 $root = $_SERVER['DOCUMENT_ROOT'];
 $ini_path = $root."/php.ini";
 $array = parse_ini_file($ini_path);
-define('TIMEOUR_DUR', $array["timeout_time"]);
+define('TIMEOUT_DUR', $array["timeout_time"]);
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
-    checkAndResetTime(TIMEOUR_DUR);
+    checkAndResetTime(TIMEOUT_DUR);
 } else {
     header("Location: /php/login.php", true, 301);
 }

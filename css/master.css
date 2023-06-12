@@ -4,25 +4,23 @@
   --footer-height: 40px;
 }
 /* Footer an Unterseite kleben */
- /* body {
-  min-height: 100vh;
-  margin: 0;
-  position: relative;
+html,
+body {
+  height: 100%;
 }
 
-body::after {
-  content: '';
-  display: block;
-  height: var(--footer-height);
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 footer {
-  margin-top: auto;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: var(--footer-height);
-} */
+  flex-shrink: 0;
+}
 /* Ende - Footer an Unterseite kleben */
 
 /* Navbar */

@@ -63,14 +63,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-2">
+            <div class="mx-auto col-md-12 col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <p class="mb-0">Passwort ändern?</p>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <div class="d-flex justify-content-center align-items-center">
                                     <button id="changePassword" type="button"
                                         class="btn btn-primary mt-2">Ändern</button>
@@ -104,7 +104,6 @@
         </div>
         <div id="error-dialog" title="Fehler"></div>
         <div id="success-dialog" title="Password geändert"></div>
-        <script></script>
         <script>
             var UserID;
             var UserName;
