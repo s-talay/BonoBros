@@ -49,16 +49,22 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
 <body class="h-100">
     <?php
     include_once($root . "/bits/header.php");
-    if (isset($pageContent)) {
-        echo $pageContent;
-    } else {
-        echo "Error Loading Page";
-    }
+    ?>
+    <main>
+        <?php
+        if (isset($pageContent)) {
+            echo $pageContent;
+        } else {
+            echo "Error Loading Page";
+        }
+        ?>
+    </main>
+    <?php
     include_once($root . "/bits/footer.php");
     if (isset($pageScripts)) {
         echo $pageScripts;
     }
-    
+
     ?>
 </body>
 
