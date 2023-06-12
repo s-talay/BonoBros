@@ -22,15 +22,12 @@ if (!check_session()) {
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
-    #searches for lobbys with state and playerid
     if (isset($_GET['lobbyid'])) {
         $lobbyid = $_GET['lobbyid'];
-        $state = "running";
-        $stmt = $mysqli->prepare("SELECT if(state = 'running',1,0) as active
-                                FROM lobby as l
-                                WHERE state = ? 
-                                AND l.lobbyid = ?");
-        $stmt->bind_param("si", $state, $lobbyid);
+        $stmt = $mysqli->prepare("SELECT m.movetype as cell,m.playerid as player
+                                FROM moves_tictactoe as m
+                                WHERE m.lobbyid = ?");
+        $stmt->bind_param("i", $lobbyid);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -38,12 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             // Output data of each row
             $data = [];
             while ($row = $result->fetch_assoc()) {
-                $data = $row;
+                $data[] = $row;
             }
             echo json_encode($data);
         } else {
-            echo ('{"active":0}');
-            die;
         }
     }
     else {

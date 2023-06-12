@@ -4,6 +4,10 @@ include_once($root."/bits/sessioncheck.php");
 $pageTitle="TicTacToe";
 $pageScripts='<script src="/js/tictactoeonline.js"></script>';
 $pageStyles='<link rel="stylesheet" href="/css/tictactoe.css">';
+if(!isset($_GET['lobbyId'])){
+  echo("no lobby id");
+  die;
+}
 $lobbyId = $_GET['lobbyId'];
 echo "<script>let lobbyId = ". json_encode($lobbyId) . ";</script>";
 

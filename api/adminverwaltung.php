@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
-        echo($data['admin']);
     }
     else echo "Fehler";
 

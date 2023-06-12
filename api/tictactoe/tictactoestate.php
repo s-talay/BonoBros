@@ -25,18 +25,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     #searches for lobbys with state and playerid
     if (isset($_GET['lobbyid'])) {
         $lobbyid = $_GET['lobbyid'];
-        $state = "running";
-        $stmt = $mysqli->prepare("SELECT if(state = 'running',1,0) as active
-                                FROM lobby as l
-                                WHERE state = ? 
-                                AND l.lobbyid = ?");
-        $stmt->bind_param("si", $state, $lobbyid);
+        $stmt = $mysqli->prepare("SELECT if(m.playerid=l.player1id,l.player2id,l.player1id) as currentPlayer,l.state,l.winnerid
+                                FROM moves_tictactoe as m
+                                join lobby l on m.lobbyid = l.lobbyid
+                                WHERE l.lobbyid = ?
+                                ORDER BY m.moveid DESC
+                                LIMIT 1");
+        $stmt->bind_param("i", $lobbyid);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             // Output data of each row
-            $data = [];
+            $data;
             while ($row = $result->fetch_assoc()) {
                 $data = $row;
             }
