@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
 
 }
 
-### holt alle lobbys und filtered falls mitgegeben nach ?state="open" etc...
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     $sql = "SELECT * FROM users";

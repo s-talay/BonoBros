@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->execute();
         $result = $stmt->get_result();
     } else {
-        $sql = "SELECT * FROM lobby";
+        $sql = "SELECT * FROM users";
         $result = $mysqli->query($sql);
     }
 
