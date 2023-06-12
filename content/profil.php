@@ -141,6 +141,8 @@
         </script>
         <script>
             $(function () {
+                var newPassword;
+                var currentPassword;
                 var dialog, form,
 
                     dialog = $("#dialog-form").dialog({
@@ -150,8 +152,8 @@
                         modal: true,
                         buttons: {
                             "Passwort ändern": function () {
-                                var currentPassword = $("#currentPassword").val();
-                                var newPassword = $("#newPassword").val();
+                                currentPassword = $("#currentPassword").val();
+                                newPassword = $("#newPassword").val();
                                 var confirmPassword = $("#confirmPassword").val();
 
                                 if (currentPassword == "" || newPassword == "" || confirmPassword == "") {
@@ -197,14 +199,16 @@
                     modal: true,
                     buttons: {
                         "Ja, ich bin mir sicher": function () {
-                            if (checkPassword()) {
+                            var check = checkPassword(currentPassword,newPassword);
+                            if (check == true) {
                                 $(this).dialog("close");
                                 dialog.dialog("close");
                                 $("#error-dialog").text("Amogus");
+                                $("#error-dialog").attr("title","Passwort geändert!");
                                 $("#error-dialog").dialog("open");
                                 return;
                             } else {
-                                $("#error-dialog").text("Fehler, Passwort konnte nicht geändert werden.");
+                                $("#error-dialog").text(check);
                                 $("#error-dialog").dialog("open");
                                 return;
                             }
@@ -241,19 +245,19 @@
 
         </script>
         <script>
-            function checkPassword(password) {
+            function checkPassword(oldPassword, newPassword) {
                 return $.ajax({
                     url: '/api/passwordchange.php',
                     type: 'POST',
-                    data: {
-                        password: password
-                    }
+                    data: JSON.stringify({oldPassword:oldPassword,newPassword:newPassword}),
+                    contentType: "application/json",
+                    dataType:"json"
                 })
                     .then(function (response) {
-                        return response == 1 ? true : false;
+                        return response == 1 ? true : response;
                     })
                     .fail(function (error) {
-                        return false;
+                        return error;
                     });
             }
 
