@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE username = ?";
-        if($stmt = $mysqli->prepare($sql)){
+        if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_username);
 
@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
         }
     } else {
-        loadPage();//lädt jetzt mit den err Variablen gesetzt, also gibt einen Error zurück
+        loadPage(); //lädt jetzt mit den err Variablen gesetzt, also gibt einen Error zurück
     }
 
     // Close connection
