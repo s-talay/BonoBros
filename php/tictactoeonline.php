@@ -13,6 +13,8 @@ echo "<script>let lobbyId = ". json_encode($lobbyId) . ";</script>";
 
 $pageContent= '<article>
 <h1>Tic Tac Toe</h1>
+<div id="winnerdiv">
+</div>
   <table>
     <tr>
       <td id="cell00"></td>
@@ -30,7 +32,6 @@ $pageContent= '<article>
       <td id="cell22"></td>
     </tr>
   </table>
-  <button id="restart">Restart Game</button>
 </article>';
 
 include_once($root."/php/master.php");

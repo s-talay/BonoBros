@@ -64,6 +64,7 @@
       xhr.open('GET', url, true);
       xhr.onreadystatechange = function () {
          if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
             var jsonResponse = JSON.parse(xhr.responseText);
             // Assuming the JSON response is an array
             jsonData = jsonResponse;
