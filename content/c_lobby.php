@@ -29,8 +29,8 @@
    }
    userIDAjax.send();
 
-   function enter_Game() {
-
+   function enter_Game(lobby_id) {
+      document.location.href = "/php/tictactoeonline.php?lobbyId=" + lobby_id;
    }
 
    function close_lobby(lobby_id) {
@@ -110,9 +110,9 @@
                   tr.append(td); // Append the table cell to the table row
                });
                let td = $("<td>");
-               let btn_join = $("<button class = 'btn_lobby_close'>Close Lobby</button>");
-               $(btn_join).on("click", (i) => { close_lobby(vals[0]) })
-               $(btn_join).addClass("btn_lobby_close").appendTo($(td));
+               let btn_close = $("<button class = 'btn_lobby_close'>Close Lobby</button>");
+               $(btn_close).on("click", (i) => { close_lobby(vals[0]) })
+               $(btn_close).addClass("btn_lobby_close").appendTo($(td));
                tr.append(td); // Append the table cell to the table row
                table.append(tr); // Append the table row to the table
             });
@@ -133,10 +133,6 @@
       UserName = jsonRes.username;
    }
    userIDAjax.send();
-
-   function enter_Game() {
-
-   }
 
    function convert_lobby_running() {
 
