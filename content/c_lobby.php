@@ -1,22 +1,34 @@
-<head>
-   <style>
-      table,
-      th,
+<style>
+   table,
+   th,
+   td {
+      border: 1px solid black;
+      border-collapse: collapse;
+   }
+
+   td,
+   th {
+      padding: 10px;
+   }
+
       td {
-         border: 1px solid black;
-         border-collapse: collapse;
+         position: relative;
       }
 
-      td,
-      th {
-         padding: 10px;
+      button.fill-td {
+         position: absolute;
+         background-color: #44829f;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         z-index: 1;
       }
    </style>
-</head>
-
-<button onclick="location.href='/php/lobby_tictactoe.php'">Back</button>
-<p></p>
-<div id="container"></div>
+<div class="d-flex justify-content-center mb-2">
+   <button class="btn btn-secondary mb-2" onclick="location.href='/php/lobby_tictactoe.php'">Back</button>
+</div>
+<div class="text-center table-responsive mx-auto col-lg-8 col-md-8 col-sm-10" id="container"></div>
 <script>
    var UserID;
    var UserName;
@@ -74,7 +86,7 @@
             let container = $("#container");
 
             // Create the table element
-            let table = $("<table id='lobby_open'>");
+            let table = $("<table class='table' id='lobby_open'>");
 
             // Get the keys (column names) of the first object in the JSON data
             let cols = Object.keys(jsonData[0]);
@@ -110,9 +122,9 @@
                   tr.append(td); // Append the table cell to the table row
                });
                let td = $("<td>");
-               let btn_close = $("<button class = 'btn_lobby_close'>Close Lobby</button>");
-               $(btn_close).on("click", (i) => { close_lobby(vals[0]) })
-               $(btn_close).addClass("btn_lobby_close").appendTo($(td));
+               let btn_join = $("<button style='background-color:red' class='fill-td btn btn-danger btn_lobby_close'>Close Lobby</button>");
+               $(btn_join).on("click", (i) => { close_lobby(vals[0]) })
+               $(btn_join).addClass("btn_lobby_close").appendTo($(td));
                tr.append(td); // Append the table cell to the table row
                table.append(tr); // Append the table row to the table
             });
@@ -152,7 +164,7 @@
             let container = $("#container");
 
             // Create the table element
-            let table = $("<table id='lobby_running'>");
+            let table = $("<table class='table' id='lobby_running'>");
 
             // Get the keys (column names) of the first object in the JSON data
             let cols = Object.keys(jsonData[0]);
@@ -188,7 +200,7 @@
                   tr.append(td); // Append the table cell to the table row
                });
                let td = $("<td>");
-               let btn_join = $("<button class = 'btn_lobby_join'>Enter Game</button>");
+               let btn_join = $("<button class='fill-td btn btn-primary btn_lobby_join'>Enter Game</button>");
                $(btn_join).on("click", (i) => { enter_Game(vals[0]) })
                $(btn_join).addClass("btn_lobby_join").appendTo($(td));
                tr.append(td); // Append the table cell to the table row

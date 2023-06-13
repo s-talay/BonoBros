@@ -8,18 +8,28 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     exit;
 }
 
-require_once $root."/config.php";
-$pageStyles = '<link rel="stylesheet" href="/css/login.css">';
-$pageTitle = "Login";
-$pageContent = file_get_contents($root."/content/login.php");
-include_once($root."/php/master.php");
-?>
-<?php
+require_once $root . "/config.php";
 
-// Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
+function loadPage(){
+    global $root;
+    global $username_err;
+    global $password_err;
+    global $login_err;
+    $pageStyles = '<link rel="stylesheet" href="/css/login.css">';
+    $pageTitle = "Login";
+    ob_start(); // Start output buffering
+    include($root . "/content/login.php");
+    $pageContent = ob_get_clean(); // Get the contents of the included file and clear the buffer
+    include_once($root . "/php/master.php");
+}
 
+?>
+<?php
+if($_SERVER["REQUEST_METHOD"] == "GET"){
+    loadPage();
+}
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -57,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Check if username exists, if yes then verify password
                 if ($stmt->num_rows == 1) {
                     // Bind result variables
-                    $stmt->bind_result($id, $username, $hashed_password,$admin,$email,$created_at);
+                    $stmt->bind_result($id, $username, $hashed_password, $admin, $email, $created_at);
                     if ($stmt->fetch()) {
                         if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
@@ -69,28 +79,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["admin"] = $admin;
                             $_SESSION["email"] = $email;
                             $_SESSION["created_at"] = $created_at;
-                            
+
 
                             // Redirect user to welcome page
                             header("location: landingpage.php");
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
+                            loadPage();
                         }
                     }
                 } else {
                     // Username doesn't exist, display a generic error message
                     $login_err = "Invalid username or password.";
+                    loadPage();
                 }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
+                loadPage();
             }
 
             // Close statement
             $stmt->close();
         }
-    }else{
-        echo "<h1>ERROR</h1>";
+    } else {
+        loadPage();
     }
 
     // Close connection
