@@ -22,12 +22,13 @@ if (!check_session()) {
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
-    #searches for lobbys with state and playerid
+    //searches for lobbys with state and playerid
     if (isset($_GET['lobbyid'])) {
         $lobbyid = $_GET['lobbyid'];
-        $stmt = $mysqli->prepare("SELECT if(m.playerid=l.player1id,l.player2id,l.player1id) as currentPlayer,l.state,l.winnerid
+        $stmt = $mysqli->prepare("SELECT if(m.playerid=l.player1id,l.player2id,l.player1id) as currentPlayer,l.state,u.username
                                 FROM moves_tictactoe as m
                                 join lobby l on m.lobbyid = l.lobbyid
+                                left join users u on u.id = l.winnerid
                                 WHERE l.lobbyid = ?
                                 ORDER BY m.moveid DESC
                                 LIMIT 1");
@@ -43,8 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 $data = $row;
             }
             echo json_encode($data);
-        } 
-        else {
+        } else {
             $lobbyid = $_GET['lobbyid'];
             $stmt = $mysqli->prepare("SELECT l.player1id as currentPlayer,l.state,l.winnerid
                                     FROM lobby l

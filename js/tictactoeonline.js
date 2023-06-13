@@ -21,7 +21,7 @@ async function startGame() {
   }
 
   fetchGameState(); // fetch initial game state
-  intervalID = setInterval(fetchGameState, 5000); // fetch game state every 5 seconds
+  intervalID = setInterval(fetchGameState, 500); // fetch game state every 5 seconds
 }
 
 
@@ -30,9 +30,15 @@ async function fetchGameState() {
   
   const stateData = await stateResponse.json();
   console.log(stateData);
-  if(stateData.winnerid){
-
+  if(stateData.username == null && stateData.state == "closed"){
+    alert("Es ist ein Unentschieden");
+    clearInterval(intervalID);
+  }else if(stateData.username != null && stateData.state == "closed"){
+    alert("Der Sieger ist "+stateData.username);
+    clearInterval(intervalID);
   }
+  changeTurnTitle();
+
 
   const historyResponse = await fetch('/api/tictactoe/tictactoehistory.php?lobbyid='+lobbyId);
   const historyData = await historyResponse.json();
@@ -43,7 +49,7 @@ async function fetchGameState() {
     historyData.forEach(move => {
       console.log(move);
       const cell = document.querySelector(`#cell${move.cell}`);
-      cell.textContent = move.player;
+      cell.textContent = (meData.id == move.player)?"X":"O";
     });
   }
   
@@ -56,7 +62,7 @@ function handleCellClick(e) {
     return;
   }
   
-  cell.textContent = currentPlayer;
+  // cell.textContent = currentPlayer; // nicht nötig passiert eh später
   updateMove(cell.id); // send your move to the server
   fetchGameState();
 }
@@ -74,4 +80,27 @@ async function updateMove(cellId) {
   //const data = await response.json();
 }
 
+async function changeTurnTitle(){
+  const res = await fetch('/api/tictactoe/turntitle.php?lobbyid='+lobbyId);
+  const data = await res.json();
+  console.log(meData.id +" : "+currentPlayer);
+  if(currentPlayer == null){
+    $("#itsTurn span").text(data.User1+"´s");
+    return;
+  }
+  if(meData.id === currentPlayer){
+    if(meData.username == data.User1){
+      $("#itsTurn span").text(data.User1+"´s");
+    }else{
+      $("#itsTurn span").text(data.User2+"´s");  
+    }
+  }else{
+    if(meData.username == data.User1){
+      $("#itsTurn span").text(data.User2+"´s");
+    }else{
+      $("#itsTurn span").text(data.User1+"´s");
+    }
+  }
+
+}
 startGame();

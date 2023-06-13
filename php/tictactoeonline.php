@@ -11,28 +11,7 @@ if(!isset($_GET['lobbyId'])){
 $lobbyId = $_GET['lobbyId'];
 echo "<script>let lobbyId = ". json_encode($lobbyId) . ";</script>";
 
-$pageContent= '<article>
-<h1>Tic Tac Toe</h1>
-<div id="winnerdiv">
-</div>
-  <table>
-    <tr>
-      <td id="cell00"></td>
-      <td id="cell01"></td>
-      <td id="cell02"></td>
-    </tr>
-    <tr>
-      <td id="cell10"></td>
-      <td id="cell11"></td>
-      <td id="cell12"></td>
-    </tr>
-    <tr>
-      <td id="cell20"></td>
-      <td id="cell21"></td>
-      <td id="cell22"></td>
-    </tr>
-  </table>
-</article>';
+$pageContent= file_get_contents($root."/content/tictactoe.html");
 
 include_once($root."/php/master.php");
 ?>
