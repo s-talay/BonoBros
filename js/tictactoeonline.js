@@ -3,6 +3,8 @@ let intervalID = null;
 const cells = document.querySelectorAll("td");
 let meData=null;
 
+let displayNames = false;
+
 async function startGame() {
   const me = await fetch("/api/userid.php");
   console.log(me)
@@ -16,7 +18,7 @@ async function startGame() {
   const lobbyData = await lobbyResponse.json();
   console.log(lobbyData);
   if (!lobbyData.active) {
-    alert('The lobby is not active.');
+    openDialog('Die Lobby existiert nicht bzw. ist nicht aktiv.',"Fehler");
     return;
   }
 
@@ -31,10 +33,10 @@ async function fetchGameState() {
   const stateData = await stateResponse.json();
   console.log(stateData);
   if(stateData.username == null && stateData.state == "closed"){
-    alert("Es ist ein Unentschieden");
+    openDialog("Es ist ein Unentschieden","Spiel vorbei!");
     clearInterval(intervalID);
   }else if(stateData.username != null && stateData.state == "closed"){
-    alert("Der Sieger ist "+stateData.username);
+    openDialog("Der Sieger ist "+stateData.username,"Spiel vorbei!");
     clearInterval(intervalID);
   }
   changeTurnTitle();
@@ -80,6 +82,14 @@ async function updateMove(cellId) {
   //const data = await response.json();
 }
 
+async function displayNamesFunc(json){
+  let player1 = json.User1;
+  let player2 = json.User2;
+
+  $("#player1").text(player1);
+  $("#player2").text(player2);
+}
+
 async function changeTurnTitle(){
   const res = await fetch('/api/tictactoe/turntitle.php?lobbyid='+lobbyId);
   const data = await res.json();
@@ -88,6 +98,7 @@ async function changeTurnTitle(){
     $("#itsTurn span").text(data.User1+"´s");
     return;
   }
+  displayNamesFunc(data);
   if(meData.id === currentPlayer){
     if(meData.username == data.User1){
       $("#itsTurn span").text(data.User1+"´s");
@@ -103,4 +114,22 @@ async function changeTurnTitle(){
   }
 
 }
+
+async function openDialog(message,title) {
+  // Create a div element for the dialog content
+  var dialogContent = $('<div>').html(message);
+
+  // Open the dialog using jQuery UI
+  dialogContent.dialog({
+    title: title,
+    modal: true,
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+        location.href = "/php/landingpage.php";
+      }
+    }
+  });
+}
+
 startGame();

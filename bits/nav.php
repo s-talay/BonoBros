@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light shadow-sm">
-    <div class="container col-lg-12">
+    <div class="container mx-auto col-lg-12">
         <style>
             .neon-rainbow {
                 animation: blink 1s infinite;
@@ -39,10 +39,11 @@
                 }
             }
         </style>
-        <a href="/" class="navbar-brand col-lg-4 d-flex align-items-center">
+        <a href="/" class="navbar-brand col-lg-4 d-flex justify-content-start">
             <img src="/img/BonoBros-Logo.png" width="180" alt="Logo">
         </a>
-        <div class="col-lg-3 my-auto">
+
+        <div class="col-lg-3 text-center justify-content-center my-auto">
             <h4><p class="neon-rainbow mx-0 my-auto" id="usertext"></p></h4>
         </div>
 
@@ -66,7 +67,8 @@
                 tag.text(text);
             </script>
         <?php } ?>
-        <div class="col-lg-4" id="new">
+
+        <div class="col-lg-4 text-center justify-content-end" id="new">
 
             <?php
             if (isset($_SESSION["admin"]) && $_SESSION["admin"] == 1) {
