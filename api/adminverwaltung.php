@@ -20,10 +20,11 @@ if(!check_session()){
 
 if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
     $data = json_decode(file_get_contents('php://input'), true);   
-    if(isset($data['admin'])&&isset($data['enabled'])&&isset($data['id'])) {
+    
+    if(isset($data['admin']) AND isset($data['enabled']) AND isset($data['id'])) {
         $sql = "UPDATE users SET admin=?,enabled=? WHERE id=?";
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param("iii",$data["admin"],$data["enabled"],$data["id"]);
+        $stmt->bind_param("iii",$data['admin'],$data['enabled'],$data['id']);
         $stmt->execute();
         $stmt->close();
         $mysqli->close();
