@@ -41,8 +41,8 @@
    }
    userIDAjax.send();
 
-   function enter_Game() {
-
+   function enter_Game(lobby_id) {
+      document.location.href = "/php/tictactoeonline.php?lobbyId=" + lobby_id;
    }
 
    function close_lobby(lobby_id) {
@@ -76,6 +76,7 @@
       xhr.open('GET', url, true);
       xhr.onreadystatechange = function () {
          if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
             var jsonResponse = JSON.parse(xhr.responseText);
             // Assuming the JSON response is an array
             jsonData = jsonResponse;
@@ -144,10 +145,6 @@
       UserName = jsonRes.username;
    }
    userIDAjax.send();
-
-   function enter_Game() {
-
-   }
 
    function convert_lobby_running() {
 

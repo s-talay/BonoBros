@@ -23,51 +23,22 @@ async function startGame() {
   fetchGameState(); // fetch initial game state
   intervalID = setInterval(fetchGameState, 5000); // fetch game state every 5 seconds
 }
-async function checkWin() {
-  const winningCombinations = [
-    ["00", "01", "02"],
-    ["10", "11", "12"],
-    ["20", "21", "22"],
-    ["00", "10", "20"],
-    ["01", "11", "21"],
-    ["02", "12", "22"],
-    ["00", "11", "22"],
-    ["02", "11", "20"]
-  ];
-
-  const stateResponse = await fetch('/api/tictactoe/tictactoestate.php?lobbyid='+lobbyId);
-  const stateData = await stateResponse.json();
-
-  for (let i = 0; i < winningCombinations.length; i++) {
-    const [a, b, c] = winningCombinations[i];
-    const cellA = document.querySelector(`#cell${a}`);
-    const cellB = document.querySelector(`#cell${b}`);
-    const cellC = document.querySelector(`#cell${c}`);
-    if (
-      cellA.textContent !== "" &&
-      cellA.textContent === cellB.textContent &&
-      cellB.textContent === cellC.textContent
-    ) {
-      alert(`${cellA.textContent} wins!`);
-      return;
-    }
-  }
-  const isTie = stateData.gameOver && !stateData.winner;
-  if (isTie) {
-    alert("It's a tie!");
-  }
-}
 
 
 async function fetchGameState() {
   const stateResponse = await fetch('/api/tictactoe/tictactoestate.php?lobbyid='+lobbyId);
-  console.log(stateResponse)
+  
   const stateData = await stateResponse.json();
+  console.log(stateData);
+  if(stateData.winnerid){
+
+  }
 
   const historyResponse = await fetch('/api/tictactoe/tictactoehistory.php?lobbyid='+lobbyId);
   const historyData = await historyResponse.json();
 
   currentPlayer = stateData.currentPlayer;
+  // update all cells based on history data
   if(historyData){
     historyData.forEach(move => {
       console.log(move);
@@ -75,10 +46,7 @@ async function fetchGameState() {
       cell.textContent = move.player;
     });
   }
-  // update all cells based on history data
-
-
-  checkWin();
+  
 }
 
 function handleCellClick(e) {
@@ -90,7 +58,6 @@ function handleCellClick(e) {
   
   cell.textContent = currentPlayer;
   updateMove(cell.id); // send your move to the server
-  checkWin();
   fetchGameState();
 }
 
@@ -103,9 +70,8 @@ async function updateMove(cellId) {
     },
     body: JSON.stringify({cell: cellId, lobbyid: lobbyId}),
   });
-  console.log(response);
+   console.log(await response);
   //const data = await response.json();
-  return response;
 }
 
 startGame();
