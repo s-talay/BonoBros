@@ -26,7 +26,5 @@ auto_prepend_file="C:\xampp\php\creds.php"
 ```
 5. Nun kannst du in XAMPP MySQL starten und die SQL Datenbank installieren
 [SQL Datenbank Datei](https://github.com/KingSeyfo/BonoBros/blob/main/bonobros.sql)
-6. Jetzt fehlen nur noch die Webserverdateien selbst. Lösche den Inhalt von **C:\xampp\htdocs\\** und lade dieses Repository hier herunter und lege die Dateien in den zuvor entleerten **htdocs**-Ordner ab.
+6. Jetzt fehlen nur noch die Webserverdateien selbst. Lösche den Inhalt von **C:\xampp\htdocs\\** und lade [dieses](https://github.com/KingSeyfo/BonoBros) Repository hier herunter und lege die Dateien in den zuvor entleerten **htdocs**-Ordner ab.
 7. Fertig! Installation abgeschlossen, starte via XAMPP den Apache Server neu. 
-
-
