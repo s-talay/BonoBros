@@ -49,6 +49,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate credentials
     if (empty($username_err) && empty($password_err)) {
+        $sqlEnabled = "SELECT * FROM users WHERE username = ? AND enabled = 1";
+        if($stmtEnabled = $mysqli->prepare($sqlEnabled)){
+            $stmtEnabled->bind_param("s", $param_username);
+            $param_username = $username;
+            if($stmtEnabled->execute()){
+                $stmtEnabled->store_result();
+                if($stmtEnabled->num_rows == 0){
+                    $login_err = "Dein Account wurde gesperrt!";
+                    loadPage();
+                    $stmtEnabled->close();
+                    $mysqli->close();
+                    exit();
+                }
+            }
+        }
+        
         // Prepare a select statement
         $sql = "SELECT id, username, password, admin, email, created_at FROM users WHERE username = ? AND enabled = 1";
 
