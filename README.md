@@ -22,7 +22,7 @@ auto_prepend_file=
 ```
 4. Füge nun den absoluten Pfad zur zuvor erstellten **creds.php** in Anführungszeichen hinzu
 ```
-auto_prepend_file="C:\xampp\creds.php"
+auto_prepend_file="C:\xampp\php\creds.php"
 ```
 5. Nun kannst du in XAMPP MySQL starten und die SQL Datenbank installieren
 [SQL Datenbank Datei](https://github.com/KingSeyfo/BonoBros/blob/main/bonobros.sql)
