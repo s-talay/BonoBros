@@ -16,6 +16,8 @@ if(isset($_GET['gamename'])){
         // $pageStyles='<link rel="stylesheet" href="/css/tictactoe.css">';
         $pageContent= file_get_contents($root."/content/c_.php");
     }else{
+        header("location: 404.php");
+        exit();
     }
     include_once($root."/php/master.php");
 }else{
