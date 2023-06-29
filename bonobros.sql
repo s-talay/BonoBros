@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS `bonobros`;
+CREATE DATABASE `bonobros`;
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -7,15 +10,17 @@
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
+USE `bonobros`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
 
 --
 -- Database: `bonobros`
@@ -54,7 +59,7 @@ CREATE TABLE `lobby` (
 --
 
 INSERT INTO `lobby` (`lobbyid`, `state`, `gameid`, `player1id`, `player2id`, `winnerid`) VALUES
-(1, 'open', 1, 1, NULL, NULL);
+(1, 'open', 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -91,7 +96,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `username`, `password`, `admin`, `enabled`, `created_at`) VALUES
 (1, 'admin@root.de', 'admin', '$2y$10$hLEuieqlq4QfXzJF/PC7kueDuICWsJ9mdVLBQ/fVK59wtxSkh/PUe', 1, 1, '2023-05-03 15:39:12'),
-(7, 'user@user.de', 'user', '$2y$10$rHjjO47HsB1fdYO/uVey7.RQRcxM/eE0AWrHgqQ6DpBMErXKGdOsG', 0, 1, '2023-05-31 16:20:29');
+(2, 'user@user.de', 'user', '$2y$10$rHjjO47HsB1fdYO/uVey7.RQRcxM/eE0AWrHgqQ6DpBMErXKGdOsG', 0, 1, '2023-05-31 16:20:29');
 
 --
 -- Indexes for dumped tables
