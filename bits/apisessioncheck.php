@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-$root = $_SERVER['DOCUMENT_ROOT'];
-$ini_path = $root."/php.ini";
-$array = parse_ini_file($ini_path);
-define('TIMEOUT_DUR', $array["timeout_time"]);
-
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
     checkAndResetTime(TIMEOUT_DUR);
 } else {

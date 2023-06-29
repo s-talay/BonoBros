@@ -2,12 +2,9 @@
 session_start();
 
 $root = $_SERVER['DOCUMENT_ROOT'];
-$ini_path = $root."/php.ini";
-$array = parse_ini_file($ini_path);
-define('TIMEOUR_DUR', $array["timeout_time"]);
 
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
-    checkTime(TIMEOUR_DUR);
+    checkTime(TIMEOUT_DUR);
     if (basename($_SERVER['PHP_SELF']) == 'index.php' || basename($_SERVER['PHP_SELF']) == '') {
         header("Location: /php/landingpage.php", true, 301);
     }
