@@ -8,5 +8,5 @@ define('DB_SERVER', "localhost");
 define('DB_USERNAME', "root");
 define('DB_PASSWORD', "");
 define('DB_NAME', "bonobros");
-define("TIMEOUT_DUR","1800");
+define("TIMEOUT_DUR","1800");  // in Sekunden
 ?>

@@ -20,8 +20,6 @@ Funktionen:
     - Menu (Userverwaltung)
 - Lobbies
 - Spiel
-- Ranking
-- Spiel
     - Online gegneinander
     - TicTacToe
 
@@ -30,4 +28,4 @@ Geplante Technologien:
 - jQueryUI
 - PHP
 - MySQL
-
+- Bootstrap
