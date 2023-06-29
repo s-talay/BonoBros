@@ -6,15 +6,13 @@
 2. Erstelle eine Datei mit der .php Endung, und lege Sie irgendwo ab
 In unserem Fall ist es **creds.php** mit dem absoluten Pfad **C:\xampp\php\creds.php**
 Die Datei sollte folgenden Inhalt haben
-
     <?php 
-    define('DB_SERVER', "localhost");
-    define('DB_USERNAME', "root");
-    define('DB_PASSWORD', "");
-    define('DB_NAME', "bonobros");
-    define("TIMEOUT_DUR","1800");  // in Sekunden
+        define('DB_SERVER', "localhost");
+        define('DB_USERNAME', "root");
+        define('DB_PASSWORD', "");
+        define('DB_NAME', "bonobros");
+        define("TIMEOUT_DUR","1800");  // in Sekunden
     ?>
-
 3. Öffne die **php.ini** mit dem Pfad **xampp\php\php.ini**
 4. Finde folgendende Zeile
 
