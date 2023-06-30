@@ -3,6 +3,7 @@
   --footer-color: rgb(91, 173, 210);
   --footer-height: 40px;
 }
+
 /* Footer an Unterseite kleben */
 html,
 body {
@@ -21,10 +22,12 @@ main {
 footer {
   flex-shrink: 0;
 }
+
 /* Ende - Footer an Unterseite kleben */
 
 /* Navbar */
 nav {
   background-color: lightblue;
 }
+
 /* Ende - Navbar */

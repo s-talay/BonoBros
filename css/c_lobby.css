@@ -1,0 +1,25 @@
+table,
+th,
+td {
+   border: 1px solid black;
+   border-collapse: collapse;
+}
+
+td,
+th {
+   padding: 10px;
+}
+
+td {
+   position: relative;
+}
+
+button.fill-td {
+   position: absolute;
+   background-color: #44829f;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 1;
+}
