@@ -1,9 +1,9 @@
-section table {
+table {
   border-collapse: collapse;
   margin: auto;
 }
 
-section td {
+td {
   width: 100px;
   height: 100px;
   text-align: center;
@@ -14,7 +14,7 @@ section td {
   cursor: pointer;
 }
 
-section td:hover {
+td:hover {
   background-color: #f2f2f2;
 }
 
