@@ -1,0 +1,17 @@
+/* Nicht verwendet wegen komischen Bugs bei externem Stylesheet */
+#itsTurn {
+    font-weight: bold;
+    font-size: 4dvb;
+}
+
+.player-title {
+    font-weight: bolder;
+}
+
+.player-name {
+    font-weight: 600;
+}
+
+table {
+    aspect-ratio: 1;
+}

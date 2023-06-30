@@ -1,12 +1,11 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+include_once($root . "/bits/sessioncheck.php");
 
-include_once($root."/bits/sessioncheck.php");
-
-//$pageStyles = '<link rel="stylesheet" href="/css/landingpage.css">';
+// Templatevariablen
 $pageTitle = "Profil";
-//$pageScripts = '<script src="/js/gameswitcher.js"></script>';
-$pageContent = file_get_contents($root."/content/profil.php");
+$pageContent = file_get_contents($root . "/content/profil.php");
+$pageScripts = '<script src="/js/profil.js"></script>';
 
-include_once($root."/php/master.php");
+include_once($root . "/php/master.php");
 ?>

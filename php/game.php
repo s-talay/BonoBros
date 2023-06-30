@@ -1,26 +1,30 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
+include_once($root . "/bits/sessioncheck.php");
 
-include_once($root."/bits/sessioncheck.php");
-
-if(isset($_GET['gamename'])){
+//Überprüfen der Variable in URL
+if (isset($_GET['gamename'])) {
     $gamename = $_GET['gamename'];
-    if($gamename =="tictactoe"){
-        $pageTitle="TicTacToe";
-        $pageScripts='<script src="/js/tictactoe.js"></script>';
-        $pageStyles='<link rel="stylesheet" href="/css/tictactoe.css">';
-        $pageContent= file_get_contents($root."/content/tictactoe.php");
-    }else if($gamename =="tictac"){
-        $pageTitle="TicTacToe";
-        // $pageScripts='<script src="/js/tictactoe.js"></script>';
-        // $pageStyles='<link rel="stylesheet" href="/css/tictactoe.css">';
-        $pageContent= file_get_contents($root."/content/c_.php");
-    }else{
+    //TicTacToe online oder normal
+    if ($gamename == "tictactoe") {
+        // Template Variablen
+        $pageTitle = "TicTacToe";
+        $pageScripts = '<script src="/js/tictactoe.js"></script>';
+        $pageStyles = '<link rel="stylesheet" href="/css/tictactoe.css">';
+        $pageContent = file_get_contents($root . "/content/tictactoe.html");
+    } else if ($gamename == "tictactoe_online") {
+        // Template Variablen
+        $pageTitle = "TicTacToe - Lobbys";
+        $pageScripts = '<script src="/js/c_lobby_tictactoe.js"></script>';
+        $pageStyles = '<link rel="stylesheet" href="/css/c_lobby_tictactoe.css">';
+        $pageContent = file_get_contents($root . "/content/c_lobby_tictactoe.php");
+    } else {
         header("location: 404.php");
         exit();
     }
-    include_once($root."/php/master.php");
-}else{
-    include_once($root."/php/master.php");
+    include_once($root . "/php/master.php");
+} else { // weiterleiten wenn Variable fehlt
+    header("location: 404.php");
+    exit();
 }
 ?>

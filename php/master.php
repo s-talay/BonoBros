@@ -1,15 +1,6 @@
 <?php
-//root variable überall für einfachheit
+//root variable überall für Einfachheit
 $root = $_SERVER['DOCUMENT_ROOT'];
-
-if (isset($_GET["ajax"])) {
-    $ajax = $_GET["ajax"];
-    if ($ajax == "") {
-    } else if ($ajax == "") {
-    }
-    exit();
-}
-
 
 // Session Zustand checken
 if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SELF']) == 'register.php') {
@@ -18,7 +9,7 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
 
 ?>
 
-
+<!-- Template benutzt in allen Seiten -->
 <!DOCTYPE html>
 <html class="h-100" lang="de">
 
@@ -27,7 +18,7 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/img/BonoBros-Logo.png">
     <base href="/">
-    <?php
+    <?php //Stylesheets importieren
     include_once($root . "/bits/stylelinks.php");
     if (isset($pageStyles)) {
         echo $pageStyles;
@@ -36,7 +27,7 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
     include_once($root . "/bits/scripts.php");
     ?>
     <title>
-        <?php
+        <?php //Titel setzen
         if (isset($pageTitle)) {
             echo $pageTitle;
         } else {
@@ -47,11 +38,11 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
 </head>
 
 <body class="h-100">
-    <?php
+    <?php //Header hinzufügen
     include_once($root . "/bits/header.php");
     ?>
     <main>
-        <?php
+        <?php //Seiten inhalt hinzufügen
         if (isset($pageContent)) {
             echo $pageContent;
         } else {
@@ -59,13 +50,11 @@ if (!basename($_SERVER['PHP_SELF']) == 'login.php' && !basename($_SERVER['PHP_SE
         }
         ?>
     </main>
-    <?php
+    <?php // Footer hinzufügen
     include_once($root . "/bits/footer.php");
     if (isset($pageScripts)) {
         echo $pageScripts;
     }
-
     ?>
 </body>
-
 </html>
