@@ -5,7 +5,7 @@ include_once($root . "/bits/sessioncheck.php");
 // Templatevariablen
 $pageTitle = "TicTacToe";
 $pageScripts = '<script src="/js/tictactoeonline.js"></script>';
-$pageStyles = '<link rel="stylesheet" href="/css/tictactoe.css"><link rel="stylesheet" href="/css/tictactoe_online.css">';
+$pageStyles = '<link rel="stylesheet" href="/css/tictactoe.css">';
 if (!isset($_GET['lobbyId'])) { // Check ob Lobby ID gesetzt
   echo ("Keine Lobby ID");
   die;
