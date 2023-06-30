@@ -3,7 +3,7 @@ $root = $_SERVER['DOCUMENT_ROOT'];
 include($root."/bits/apisessioncheck.php");
 
 require($root."/config.php");
-
+// Anfragen wer gerade am Zug ist, da Spiel abwechselnde Spieler erwartet
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     #searches for lobbys with state and playerid

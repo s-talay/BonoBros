@@ -2,7 +2,7 @@ var UserID;
 var UserName;
 var userIDAjax = new XMLHttpRequest();
 userIDAjax.open("GET", "/api/userid.php", true);
-userIDAjax.onreadystatechange = function () {
+userIDAjax.onreadystatechange = function () { // UserID aus Session abgreifen
     var jsonRes = JSON.parse(userIDAjax.responseText);
     UserID = jsonRes.id;
     UserName = jsonRes.username;
@@ -10,7 +10,7 @@ userIDAjax.onreadystatechange = function () {
 }
 userIDAjax.send();
 
-function requestAndDisplayerUserData(id) {
+function requestAndDisplayerUserData(id) { // Jetzt mit der ID alle Daten abgreifen
     var url = "/api/profileapi.php";
     var userDataAjax = new XMLHttpRequest();
     userDataAjax.open("GET", url + "?userid=" + id, true);
@@ -31,11 +31,11 @@ function requestAndDisplayerUserData(id) {
     }
     userDataAjax.send();
 }
-$(function () {
+$(function () { // Dialogfelder für Passwort Änderung
     var newPassword;
     var currentPassword;
     var dialog, form,
-
+        // Eingabedialog
         dialog = $("#dialog-form").dialog({
             autoOpen: false,
             height: 400,
@@ -81,7 +81,7 @@ $(function () {
                 form[0].reset();
             }
         });
-
+        // Bestätigungsfenster
     $("#dialog-confirm").dialog({
         autoOpen: false,
         resizable: false,
@@ -152,7 +152,7 @@ $(function () {
 
 });
 
-async function checkPassword(oldPassword, newPassword) {
+async function checkPassword(oldPassword, newPassword) { // Passwort ändern
     try {
         const response = await $.ajax({
             url: '/api/passwordchange.php',

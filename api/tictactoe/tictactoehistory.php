@@ -8,6 +8,7 @@ include_once($root."/bits/apisessioncheck.php");
 
 require_once($root . "/config.php"); // benötigt für Datenbankverbindung
 
+//Historie abgreifen, falls man später erneut beitritt
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     if (isset($_GET['lobbyid'])) {

@@ -58,41 +58,46 @@
     </form>
     <script>
         const regex = new RegExp(/^[a-zA-Z0-9_]+$/);
-const form = $("#form");
-form.submit((event) => {
-    event.preventDefault();
-    function openDialog(message) {
-        $('<div>' + message + '</div>').dialog({
-            modal: true,
-            title: 'Fehler',
-            buttons: {
-                Ok: function () {
-                    $(this).dialog('close');
+        const form = $("#form");
+        form.submit((event) => {
+            event.preventDefault();
+            function openDialog(message) {
+                $('<div>' + message + '</div>').dialog({
+                    modal: true,
+                    title: 'Fehler',
+                    buttons: {
+                        Ok: function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+            }
+
+
+            const nameInput = $("#usernameLabel").val();
+            const passwordLength = $("#passwordLabel").val().length;
+            if (regex.test(nameInput)) {
+                if (passwordLength >= 6) {
+                    $.ajax({
+                        url: form.attr('action'),
+                        method: form.attr('method'),
+                        data: form.serialize(),
+                        success: function (response) {
+                            // window.location.href = "/php/login.php";
+                            document.open();
+                            document.write(response);
+                            document.close();
+                        },
+                        error: function (error) {
+                            openDialog(error);
+                        }
+                    });
+                }else{
+                    openDialog("Passwort muss mindestens 6 Zeichen lang sein!");
                 }
+            } else {
+                openDialog("Username darf nur alphanumerische Zeichen beinhalten.");
             }
         });
-    }
-
-
-    const nameInput = $("#usernameLabel").val();
-    if (regex.test(nameInput)) {
-        $.ajax({
-            url: form.attr('action'),
-            method: form.attr('method'),
-            data: form.serialize(),
-            success: function (response) {
-                // window.location.href = "/php/login.php";
-                document.open();
-                document.write(response);
-                document.close();
-            },
-            error: function (error) {
-                openDialog(error);
-            }
-        });
-    } else {
-        openDialog("Username darf nur alphanumerische Zeichen beinhalten.");
-    }
-});
     </script>
 </section>

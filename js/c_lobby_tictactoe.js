@@ -9,7 +9,7 @@ userIDAjax.onreadystatechange = function () {
 }
 userIDAjax.send();
 
-function createLobby() {
+function createLobby() { //Lobby erstellen und in Datenbank eintragen lassen
 
    var url = '/api/lobbyapi.php';
    var xhr = new XMLHttpRequest();
@@ -32,7 +32,7 @@ function createLobby() {
    document.location.href = "/php/lobby.php";
 };
 
-function join_lobby(lobby_id) {
+function join_lobby(lobby_id) { // Datenabgreifen und weiterleiten
    var url = '/api/lobbyapi.php';
    var xhr = new XMLHttpRequest();
    xhr.open("PATCH", url, false);

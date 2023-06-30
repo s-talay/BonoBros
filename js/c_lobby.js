@@ -10,11 +10,11 @@ userIDAjax.onreadystatechange = function () {
 }
 userIDAjax.send();
 
-function enter_Game(lobby_id) {
+function enter_Game(lobby_id) { // Weiterleiten zum Spiel mit vorher generierter ID
    document.location.href = "/php/tictactoeonline.php?lobbyId=" + lobby_id;
 }
 
-function close_lobby(lobby_id) {
+function close_lobby(lobby_id) { // Lobby löschen
    //alert(lobby_id);
    var url = '/api/lobbyapi.php';
    var xhr = new XMLHttpRequest();
@@ -36,7 +36,7 @@ function close_lobby(lobby_id) {
    document.location.href = "/php/lobby.php";
 }
 
-function convert_lobby_open() {
+function convert_lobby_open() { // Tabellendaten für Lobby Liste
 
    var jsonData = [];
    var xhr = new XMLHttpRequest();
@@ -115,7 +115,7 @@ userIDAjax.onreadystatechange = function () {
 }
 userIDAjax.send();
 
-function convert_lobby_running() {
+function convert_lobby_running() { // Wenn spiel startet, Lobby als running eintragen und Tabelle anpassen
 
    var jsonData = [];
    var xhr = new XMLHttpRequest();
@@ -191,4 +191,4 @@ var intervalId = window.setInterval(function () {
    if (table) table.parentNode.removeChild(table);
    convert_lobby_open();
    convert_lobby_running();
-}, 10000);
+}, 10000); // Poll Rate

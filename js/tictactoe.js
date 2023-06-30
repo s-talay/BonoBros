@@ -2,7 +2,7 @@ const cells = document.querySelectorAll("td");
 const restartBtn = document.querySelector("#restart");
 let currentPlayer = "X";
 
-function handleCellClick(e) {
+function handleCellClick(e) {// Klick verarbeiten
   const cell = e.target;
   if (cell.textContent !== "") {
     return;
@@ -13,11 +13,11 @@ function handleCellClick(e) {
   togglePlayer();
 }
 
-function togglePlayer() {
+function togglePlayer() { // X und O abwechseln
   currentPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
-function checkWin() {
+function checkWin() { // Spielstand überprüfen
   const winningCombinations = [
     ["00", "01", "02"],
     ["10", "11", "12"],
@@ -49,7 +49,7 @@ function checkWin() {
   }
 }
 
-function restartGame() {
+function restartGame() { // Restart Knopf
   cells.forEach(cell => {
     cell.textContent = "";
     cell.addEventListener("click", handleCellClick);
@@ -57,7 +57,7 @@ function restartGame() {
   currentPlayer = "X";
 }
 
-function fancyAlert(msg) {
+function fancyAlert(msg) { // Siegermeldung
   if ($("#myDialog").length === 0) { // Check if dialog is already open
     $("<div id='myDialog'>" + msg + "</div>").dialog({
       title: "Alert",
@@ -76,9 +76,9 @@ function fancyAlert(msg) {
     });
   }
 }
-
 restartBtn.addEventListener("click", restartGame);
 
+// Evenlistener für alle Tabellenzellen
 cells.forEach(cell => {
   cell.addEventListener("click", handleCellClick);
 });

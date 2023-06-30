@@ -8,8 +8,7 @@ include_once($root."/bits/apisessioncheck.php");
 
 require_once($root . "/config.php"); // benötigt für Datenbankverbindung
 
-function checkWin($moves)
-{
+function checkWin($moves) { // Überprüft ob das Spiel eine der Gewinner Konfigurationen hat
     $winningCombinations = [
         ["00", "01", "02"],
         ["10", "11", "12"],
@@ -22,11 +21,11 @@ function checkWin($moves)
     ];
 
     $board = array_fill_keys(range(0, 2), array_fill_keys(range(0, 2), null));
-
+    
     foreach ($moves as $move) {
         $board[$move['cell'][0]][$move['cell'][1]] = $move['player'];
     }
-
+    // Check für eine der Gwinner Kombis
     foreach ($winningCombinations as $combo) {
         $first = $board[$combo[0][0]][$combo[0][1]];
         if ($first && $first == $board[$combo[1][0]][$combo[1][1]] && $first == $board[$combo[2][0]][$combo[2][1]]) {
@@ -37,14 +36,13 @@ function checkWin($moves)
     return false;
 }
 
-function checkTie($moves)
-{
+function checkTie($moves){ // Unentschieden
     $board = array_fill_keys(range(0, 2), array_fill_keys(range(0, 2), null));
 
     foreach ($moves as $move) {
         $board[$move['cell'][0]][$move['cell'][1]] = $move['player'];
     }
-
+    // Check ob alle Felder voll sind, falls Nein und der Gewinner vorher schon nicht bestimmt war muss es Unentschieden sein
     foreach ($board as $row) {
         foreach ($row as $cell) {
             if (is_null($cell)) {
@@ -55,6 +53,7 @@ function checkTie($moves)
 
     return true;
 }
+// Spielerzug verarbeiten und Speichern
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['lobbyid']) && isset($data['cell'])) {
@@ -65,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("is", $data['lobbyid'], $data['cell']);
             $stmt->execute();
             $result = $stmt->get_result();
+            //Neuen Zug speichern
             if ($result->num_rows == 0) {
                 $stmt->close();
                 $sql = "INSERT INTO moves_tictactoe (lobbyid, playerid, movetype) 
@@ -92,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo json_encode(null);
                 }
                 $stmt->close();
+                // Spiel ggf beenden
                 if (checkwin($moves)) {
                     $winner = checkwin($moves);
                     $stmt = $mysqli->prepare("UPDATE lobby SET state='closed', winnerid=? WHERE lobbyid=?");

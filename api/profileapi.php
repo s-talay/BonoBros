@@ -1,7 +1,7 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
 include($root."/bits/apisessioncheck.php");
-
+// API die alle relevanten Userdaten der Session zurück gibt
 if($_SERVER["REQUEST_METHOD"] == "GET"){
     $username = $_GET["userid"];// ändern in username
     $obj = new stdClass();

@@ -8,6 +8,7 @@ include_once($root."/bits/apisessioncheck.php");
 
 require_once($root . "/config.php"); // benötigt für Datenbankverbindung
 
+// Abfragen ob ein Spiel beendet wurde oder schon abgeschlossen
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     //searches for lobbys with state and playerid

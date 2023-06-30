@@ -5,7 +5,8 @@ let meData=null;
 
 let displayNames = false;
 
-async function startGame() {
+
+async function startGame() { // Spiel starten
   const me = await fetch("/api/userid.php");
   console.log(me)
   meData = await me.json();
@@ -14,6 +15,7 @@ async function startGame() {
     cell.addEventListener("click", handleCellClick);
   });
 
+  // Check ob Lobby existiert
   const lobbyResponse = await fetch("/api/tictactoe/checkLobby.php?lobbyid="+lobbyId);
   const lobbyData = await lobbyResponse.json();
   console.log(lobbyData);
@@ -27,7 +29,7 @@ async function startGame() {
 }
 
 
-async function fetchGameState() {
+async function fetchGameState() { // Überprüfen ob Spiel beendet
   const stateResponse = await fetch('/api/tictactoe/tictactoestate.php?lobbyid='+lobbyId);
   
   const stateData = await stateResponse.json();
@@ -57,7 +59,7 @@ async function fetchGameState() {
   
 }
 
-function handleCellClick(e) {
+function handleCellClick(e) { // Klick verarbeiten 
   const cell = e.target;
   if (cell.textContent !== "" || currentPlayer !== meData.id) { // only the current player can make a move
     console.log(currentPlayer)
@@ -69,7 +71,7 @@ function handleCellClick(e) {
   fetchGameState();
 }
 
-async function updateMove(cellId) {
+async function updateMove(cellId) { // Klick senden
   cellId = cellId.substring(4);
   const response = await fetch('/api/tictactoe/updatemove.php', {
     method: 'POST',
@@ -82,7 +84,7 @@ async function updateMove(cellId) {
   //const data = await response.json();
 }
 
-async function displayNamesFunc(json){
+async function displayNamesFunc(json){ // Namen links und rechts anzeigen
   let player1 = json.User1;
   let player2 = json.User2;
 
@@ -90,7 +92,7 @@ async function displayNamesFunc(json){
   $("#player2").text(player2);
 }
 
-async function changeTurnTitle(){
+async function changeTurnTitle(){ // Wer am Zug ist anzeigen
   const res = await fetch('/api/tictactoe/turntitle.php?lobbyid='+lobbyId);
   const data = await res.json();
   console.log(meData.id +" : "+currentPlayer);
@@ -115,7 +117,7 @@ async function changeTurnTitle(){
 
 }
 
-async function openDialog(message,title) {
+async function openDialog(message,title) { // Allgemeine Dialoge
   // Create a div element for the dialog content
   var dialogContent = $('<div>').html(message);
 

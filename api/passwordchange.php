@@ -9,7 +9,7 @@ $username = $_SESSION["username"];
 
 require($root . "/config.php");
 
-
+// Passwort wird hier empfangen und geändert
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     global $username;
     $data = json_decode(file_get_contents('php://input'), true);
@@ -17,10 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_password = trim($data['newPassword']);
     $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
 
-    //verify old password fehlt
+    // Verifizieren des alten pw's
     $verify = verifyPw($username, $old_password);
 
     if ($verify === true) {
+        // SQL Update mit neuem Passworthash
         $sql = "UPDATE users SET password = ? WHERE username = ?";
         if ($stmt = $mysqli->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -42,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// SQL Abfrage zum abgleichen von altem pw und dem gespeicherten Hash
 function verifyPw($user, $pw)
 {
     $sqlVerify = "SELECT password FROM users WHERE username = ? AND enabled = 1";

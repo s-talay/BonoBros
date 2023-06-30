@@ -8,11 +8,11 @@ include_once($root."/bits/apisessioncheck.php");
 
 require_once($root . "/config.php"); // benötigt für Datenbankverbindung
 
-
+// aktive Lobbys zurück geben
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
     #searches for lobbys with state and playerid
-    if (isset($_GET['state']) && isset($_GET['playerid'])) {
+    if (isset($_GET['state']) && isset($_GET['playerid'])) {//Spieler eigene Lobbys
         $state = $_GET['state'];
         $playerid = $_GET['playerid'];
         $stmt = $mysqli->prepare("SELECT l.lobbyid,l.state,g.gamename as 'Game',us1.Username as 'User 1' ,us2.Username as 'User 2'
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->bind_param("sii", $state, $playerid, $playerid);
         $stmt->execute();
         $result = $stmt->get_result();
-    } elseif (isset($_GET['state'])) {
+    } elseif (isset($_GET['state'])) { // Alle Lobbys
         $state = $_GET['state'];
         $stmt = $mysqli->prepare("SELECT l.lobbyid,l.state,g.gamename as 'Game',us1.Username as 'User 1' ,us2.Username as 'User 2'
                             FROM lobby as l
@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $mysqli->close();
 
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['gameid'])) {
@@ -84,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mysqli->close();
 
 }
+
 if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['lobbyid'])) {

@@ -14,7 +14,7 @@ function json_export() {
 
 }
 
-
+// Admin ernennen und degradieren
 function admin_no_admin(user_id, admin_var, enabled_var) {
    var url = '/api/adminverwaltung.php';
    var xhr = new XMLHttpRequest();
@@ -46,7 +46,7 @@ function admin_no_admin(user_id, admin_var, enabled_var) {
    if (table) table.parentNode.removeChild(table);
    list_users();
 };
-
+//User sperren und entsperren
 function enable_disable_user(user_id, admin_var, enabled_var) {
    var url = '/api/adminverwaltung.php';
    var xhr = new XMLHttpRequest();
@@ -171,7 +171,7 @@ function list_users() {
 
 list_users();
 
-function switchColumnsAndRows(tableId) {
+function switchColumnsAndRows(tableId) { // Nicht verwendet
 // Select the table element by its ID using jQuery
 var $table = $("#" + tableId);
 
