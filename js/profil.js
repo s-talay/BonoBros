@@ -107,6 +107,9 @@ $(function () {
                     }
                 } catch (error) {
                     console.error(error);
+                    $("#error-dialog").text("Das Passwort ist inkorrekt!");
+                    $("#error-dialog").dialog("open");
+                    return;
                 }
 
             },

@@ -2,23 +2,12 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include "../../config.php";
-session_start();
 
-function check_session(): bool
-{
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
-        return true;
-    } else {
-        return false;
-    }
-}
+$root = $_SERVER['DOCUMENT_ROOT'];
+include_once($root."/bits/apisessioncheck.php");
 
+require_once($root . "/config.php"); // benötigt für Datenbankverbindung
 
-if (!check_session()) {
-    header('HTTP/1.0 403 Forbidden');
-    die;
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header('Content-Type: application/json');
@@ -40,15 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             while ($row = $result->fetch_assoc()) {
                 $data = $row;
             }
-            echo json_encode($data);
+            echo(json_encode($data));
         } else {
             echo ('{"active":0}');
-            die;
+            die();
         }
     }
     else {
         header('HTTP/1.0 400 Bad Request');
         echo("no lobbyid given");
-        die;
+        die();
     }
 }

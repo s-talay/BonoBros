@@ -1,6 +1,7 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'];
 include($root . "/bits/apisessioncheck.php");
+
 if (!isset($_SESSION["username"])) {
     die("Fataler Fehler ist eingetreten. Melde dich erneut an.");
 }

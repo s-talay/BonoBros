@@ -49,13 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username_err) && empty($password_err)) {
         
         // Accountsperre checken
-        $sqlEnabled = "SELECT * FROM users WHERE username = ? AND enabled = 1";
+        $sqlEnabled = "SELECT * FROM users WHERE username = ? AND enabled = 0";
         if($stmtEnabled = $mysqli->prepare($sqlEnabled)){
             $stmtEnabled->bind_param("s", $param_username);
             $param_username = $username;
             if($stmtEnabled->execute()){
                 $stmtEnabled->store_result();
-                if($stmtEnabled->num_rows == 0){ //Nur erfüllt wenn Accound gesperrt
+                if($stmtEnabled->num_rows > 0){ //Nur erfüllt wenn Accound gesperrt
                     $login_err = "Dein Account wurde gesperrt!";
                     loadPage();
                     $stmtEnabled->close();
@@ -92,12 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             // Weiterleten
                             header("location: landingpage.php");
                         } else {// Passwort inkorrekt
-                            $login_err = "Invalid username or password.";
+                            $login_err = "Invalides Passwort.";
                             loadPage();
                         }
                     }
                 } else {// Username existiert nicht
-                    $login_err = "Invalid username or password.";
+                    $login_err = "Invalider Username.";
                     loadPage();
                 }
             } else { //SQL error

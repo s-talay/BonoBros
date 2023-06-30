@@ -2,8 +2,11 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include "../../config.php";
-session_start();
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+include_once($root."/bits/apisessioncheck.php");
+
+require_once($root . "/config.php"); // benötigt für Datenbankverbindung
 
 function checkWin($moves)
 {
@@ -52,22 +55,6 @@ function checkTie($moves)
 
     return true;
 }
-
-function check_session(): bool
-{
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-if (!check_session()) {
-    header('HTTP/1.0 403 Forbidden');
-    die;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['lobbyid']) && isset($data['cell'])) {
